@@ -72,7 +72,7 @@ const Doctors = () => {
                 <div className="flex flex-col items-center text-center justify-center p-4">
                   <h3 className="text-[var(--primary)] subTitle mb-2">{item.title}</h3>
                   <p className="text-[var(--content)] text-sm mb-3">{item.para}</p>
-                  <Link href="" className="btnLink">
+                  <Link href="tel: 8747819118" className="btnLink">
                     Book An Appointment
                   </Link>
                 </div>

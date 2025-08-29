@@ -14,7 +14,7 @@ const blogData = [
     category: ["HealthTips", "Wellness"],
     description:
       "Learn about menopause symptoms, hormonal changes, and how to manage your health effectively during this stage of life.",
-    image: "/assests/new/menopause & harmonal health.png",
+    image: "/assets/new/menopause & harmonal health.png",
     link: "/blog/menopause-hormonal-health",
   },
   {
@@ -23,7 +23,7 @@ const blogData = [
     category: ["HealthTips", "Newborn Care"],
     description:
       "Explore the essentials of neonatal care and how proper medical attention ensures healthy development in newborns.",
-    image: "/assests/new/neonatology.png",
+    image: "/assets/new/neonatology.png",
     link: "/blog/neonatology-care-newborns",
   },
   {
@@ -32,7 +32,7 @@ const blogData = [
     category: ["Diagnostics", "Medical Technology"],
     description:
       "Discover how modern ultrasound techniques help in early diagnosis and accurate treatment planning for patients.",
-    image: "/assests/new/ultrasound & Diagonstics.png",
+    image: "/assets/new/ultrasound & Diagonstics.png",
     link: "/blog/ultrasound-diagnostics",
   },
   {
@@ -41,7 +41,7 @@ const blogData = [
     category: ["HealthTips", "Dentistry"],
     description:
       "Tips and practices to keep your teeth and gums healthy, along with the latest advancements in dental care.",
-    image: "/assests/new/dentalpatient.png",
+    image: "/assets/new/dentalpatient.png",
     link: "/blog/dentistry-oral-health",
   },
   {
@@ -50,7 +50,7 @@ const blogData = [
     category: ["Surgery", "HealthTips"],
     description:
       "An overview of head and neck surgical procedures, recovery tips, and innovations in surgical techniques.",
-    image: "/assests/new/doctorimage3.png",
+    image: "/assets/new/doctorimage3.png",
     link: "/blog/head-neck-surgery",
   },
   {
@@ -59,7 +59,7 @@ const blogData = [
     category: ["Orthopaedics", "HealthTips"],
     description:
       "Learn about orthopaedic care, treatments for bone injuries, and preventive tips for maintaining strong bones.",
-    image: "/assests/new/orthopedicpatient.png",
+    image: "/assets/new/orthopedicpatient.png",
     link: "/blog/orthopaedic-care",
   },
 ];
