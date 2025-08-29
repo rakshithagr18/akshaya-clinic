@@ -5,27 +5,27 @@ import React from "react";
 const specialtiesData = [
   {
     title: "Menopause & Hormonal Health",
-    img: "/assests/new/menopause & harmonal health.png",
+    img: "/assets/new/menopause & harmonal health.png",
   },
   {
-    title: "Neonatology1",
-    img: "/assests/new/neonatology1.png",
+    title: "Neonatology",
+    img: "/assets/new/neonatology.png",
   },
   {
     title: "Ultrasound & Diagnostics",
-    img: "/assests/new/ultrasound & Diagonstics.png",
+    img: "/assets/new/ultrasound & Diagonstics.png",
   },
   {
     title: "Dentistry",
-    img: "/assests/new/doctorimage2.png",
+    img: "/assets/new/dentistry.png",
   },
   {
     title: "Head and Neck Surgery",
-    img: "/assests/new/head&necksurgeryimage.png",
+    img: "/assets/new/head & neck surgery.png",
   },
   {
     title: "Orthopaedic",
-    img: "/assests/new/orthopaedic.png",
+    img: "/assets/new/orthopaedic.png",
   },
 ];
 
