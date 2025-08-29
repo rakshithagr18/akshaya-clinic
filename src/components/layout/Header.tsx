@@ -23,7 +23,7 @@ const Header = () => {
         <section className="flex items-center justify-between">
           {/* Smaller Logo */}
           <Image
-            src="/assests/home/logo.jpg"
+            src="/assets/home/logo.jpg"
             alt="logo"
             width={120}  // Reduced width
             height={120} // Reduced height
