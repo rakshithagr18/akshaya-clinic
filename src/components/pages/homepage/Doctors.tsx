@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const Doctors = () => {
   return (
-    <section className="padding">
+    <section className="padding " id="doctors">
       <Container width>
         <h2 className="title mb-10 text-center sm:text-left">Our Doctors</h2>
       </Container>

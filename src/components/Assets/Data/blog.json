@@ -5,11 +5,11 @@
     "link": "cardiac-science",
     "para": "“From the moment I arrived at Akshaya Clinic, I was treated with kindness and professionalism. The nurses were attentive, the doctors were thorough, and the entire staff made me feel like I was in safe hands.”",
     "desc": "Cardiac Science focuses on advanced diagnostic and surgical techniques to treat heart-related conditions including coronary artery disease, heart failure, and arrhythmia. Our team combines cutting-edge technology with compassionate care.",
-    "image": "/assests/new/cardiac science.png",
+    "image": "/assets/new/cardiac science.png",
     "btn1": "All",
     "btn2": "HealthTips",
     "tags": ["Cardiology", "Rio Mehto", "April 24, 2025"],
-    "bannerImage": "/assests/new/banner image 1.png",
+    "bannerImage": "/assets/new/banner image 1.png",
     "content": [
       "Cardiac Science is at the forefront of medical innovation, leveraging modern diagnostic imaging, minimally invasive surgeries, and personalized patient care.",
       "Industry standards like AI-assisted imaging and robotic surgery are revolutionizing cardiac treatment.",
@@ -24,7 +24,7 @@
     ],
     "author": {
       "name": "Dr. Rio Mehto",
-      "image": "/assests/new/rio mehto.png",
+      "image": "/assets/new/rio mehto.png",
       "description": "Dr. Rio Mehto is a leading cardiologist with over 15 years of experience in interventional cardiology and cardiac surgery. He specializes in minimally invasive heart procedures and is passionate about advancing patient care through technology.",
       "social": {
         "twitter": "https://twitter.com/",
@@ -38,11 +38,11 @@
     "link": "future-healthcare-technology",
     "para": "“The medical team at Akshaya Clinic provided exceptional care. From advanced diagnostic tests to personalized treatment plans, everything was handled with precision and compassion.”",
     "desc": "Healthcare technology is rapidly evolving, shaping patient outcomes with digital health tools, AI-driven diagnostics, and telemedicine solutions. Industry standards ensure reliability and safety in these advancements.",
-    "image": "/assests/new/image2.png",
+    "image": "/assets/new/image2.png",
     "btn1": "All",
     "btn2": "HealthTips",
     "tags": ["Technology", "Nisha Rao", "May 02, 2025"],
-    "bannerImage": "/assests/new/bannerimage2.png",
+    "bannerImage": "/assets/new/bannerimage2.png",
     "content": [
       "Healthcare technology is no longer limited to hospitals; it is now at the fingertips of patients through mobile apps, wearables, and home monitoring devices.",
       "AI and machine learning algorithms are enabling doctors to make faster and more accurate diagnoses."
@@ -56,7 +56,7 @@
     ],
     "author": {
       "name": "Dr. Nisha Rao",
-      "image": "/assests/new/dr nisha rao.png",
+      "image": "/assets/new/dr nisha rao.png",
       "description": "Dr. Nisha Rao is a healthcare technology consultant specializing in AI-driven healthcare solutions, telemedicine platforms, and medical IoT systems.",
       "social": {
         "twitter": "https://twitter.com/",
@@ -69,7 +69,7 @@
     "title": "Orthopedic Rehabilitation",
     "link": "orthopedic-rehabilitation",
     "para": "“After my knee surgery, the orthopedic team provided me with world-class rehabilitation. The physiotherapists guided me through every step of recovery, making the journey stress-free.”",
-    "image": "/assests/new/Orthopedic Rehabilitation.png",
+    "image": "/assets/new/Orthopedic Rehabilitation.png",
     "btn1": "All",
     "btn2": "Rehab",
     "btnText": "Learn More",
@@ -80,7 +80,7 @@
     "title": "Maternity & Neonatal Care",
     "link": "maternity-neonatal-care",
     "para": "“The obstetrics and neonatal teams took wonderful care of me and my baby. From delivery to postnatal care, I felt safe and supported throughout the process.”",
-    "image": "/assests/new/maternity & neontal care.png",
+    "image": "/assets/new/maternity & neontal care.png",
     "btn1": "All",
     "btn2": "MotherCare",
     "btnText": "Read More",

@@ -23,7 +23,7 @@ const Appoinment = () => {
           </div>
           <div>
             <Image
-              src="/assests/new/doctorimage.png"
+              src="/assets/new/doctorimage.png"
               alt="Doctor"
               width={600}
               height={400}

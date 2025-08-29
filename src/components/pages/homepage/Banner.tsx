@@ -10,7 +10,7 @@ const Banner = () => {
       {/* Desktop Banner */}
       <div className="hidden sm:block w-full h-[450px] relative">
         <Image
-          src="/assests/new/bannerimage.png"
+          src="/assets/new/bannerimage.png"
           alt="banner"
           fill
           className="object-cover w-full h-full"
@@ -21,7 +21,7 @@ const Banner = () => {
       {/* Mobile Banner */}
       <div className="block sm:hidden w-full h-[400px] relative">
         <Image
-          src="/assests/new/bannerimage.png"
+          src="/assets/new/bannerimage.png"
           alt="Mobile Banner"
           fill
           className="object-cover w-full h-full"

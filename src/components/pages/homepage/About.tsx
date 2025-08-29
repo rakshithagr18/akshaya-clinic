@@ -14,7 +14,7 @@ const About = () => {
           <section className="grid grid-col-1 sm:grid-cols-2 items-center ">
             <div>
               <Image
-                src="/assests/new/image1.png"
+                src="/assets/new/image1.png"
                 alt="aboutus"
                 width={550}
                 height={550}

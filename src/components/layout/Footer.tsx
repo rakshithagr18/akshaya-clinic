@@ -21,7 +21,7 @@ const Footer = () => {
           {/* Logo Section */}
           <div className="mb-5 sm:mb-0">
             <Image
-              src="/assests/home/logo.jpg"
+              src="/assets/home/logo.jpg"
               alt="logo"
               width={250}
               height={250}
