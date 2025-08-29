@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "title": "Obstetrics",
+    "link": "Obstetrics",
+    "para": "Expert care for mothers during pregnancy, childbirth, and postpartum to ensure safe and healthy outcomes.",
+    "image": "/assets/new/doctorimage1.png"
+  },
+  {
+    "id": 2,
+    "title": "Dentistry",
+    "link": "Dentistry",
+    "para": "Expert care for teeth, gums, and oral health with preventive, restorative, and routine dental treatments daily.",
+    "image": "/assets/new/dentistry.png"
+  },
+  {
+    "id": 3,
+    "title": "Head & Neck Surgery",
+    "link": "Head & Neck Surgery",
+    "para": "Expert surgical care for the head and neck area ensuring precise treatment and safe recovery outcomes always.",
+    "image": "/assets/new/doctorimage3.png"
+  },
+  {
+    "id": 4,
+    "title": "Gynecology",
+    "link": "Gynecology",
+    "para": "Expert care for women’s reproductive health providing wellness checks, routine treatments, and safe medical guidance always.",
+    "image": "/assets/new/doctorimage4.png"
+  },
+  {
+    "id": 5,
+    "title": "Neonatology",
+    "link": "Neonatology",
+    "para": "Expert care for newborns, especially premature or high-risk infants, ensuring safe growth, development, and healthy outcomes.",
+    "image": "/assets/new/neonatology1.png"
+  }
+]

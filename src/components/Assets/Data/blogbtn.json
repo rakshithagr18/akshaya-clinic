@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "title": "All",
+    "link": "#"
+  },
+  {
+    "id": 2,
+    "title": "HealthTips",
+    "link": "#"
+  },
+  {
+    "id": 3,
+    "title": "FamilyMedicine",
+    "link": "#"
+  },
+  {
+    "id": 4,
+    "title": "WellnessCare",
+    "link": "#"
+  },
+  {
+    "id": 5,
+    "title": "PreventiveHealthcare",
+    "link": "#"
+  }
+]

@@ -1,0 +1,89 @@
+[
+  {
+    "id": 1,
+    "title": "Cardiac Science",
+    "link": "cardiac-science",
+    "para": "“From the moment I arrived at Akshaya Clinic, I was treated with kindness and professionalism. The nurses were attentive, the doctors were thorough, and the entire staff made me feel like I was in safe hands.”",
+    "desc": "Cardiac Science focuses on advanced diagnostic and surgical techniques to treat heart-related conditions including coronary artery disease, heart failure, and arrhythmia. Our team combines cutting-edge technology with compassionate care.",
+    "image": "/assests/new/cardiac science.png",
+    "btn1": "All",
+    "btn2": "HealthTips",
+    "tags": ["Cardiology", "Rio Mehto", "April 24, 2025"],
+    "bannerImage": "/assests/new/banner image 1.png",
+    "content": [
+      "Cardiac Science is at the forefront of medical innovation, leveraging modern diagnostic imaging, minimally invasive surgeries, and personalized patient care.",
+      "Industry standards like AI-assisted imaging and robotic surgery are revolutionizing cardiac treatment.",
+      "Our experts ensure patients receive world-class care while prioritizing recovery and long-term wellness."
+    ],
+    "subTitle": "How Industry Standards Are Shaping the Future of Modern Cardiac Science",
+    "paragraphs": [
+      "Cardiac Science integrates both preventive care and complex surgical interventions, ensuring patients receive holistic treatment.",
+      "Technological advancements, such as wearable heart monitors and AI-powered diagnostic tools, allow for early detection and better outcomes.",
+      "Minimally invasive procedures are reducing recovery times, improving safety, and enhancing quality of life.",
+      "As healthcare evolves, cardiac medicine will remain at the center of life-saving innovation."
+    ],
+    "author": {
+      "name": "Dr. Rio Mehto",
+      "image": "/assests/new/rio mehto.png",
+      "description": "Dr. Rio Mehto is a leading cardiologist with over 15 years of experience in interventional cardiology and cardiac surgery. He specializes in minimally invasive heart procedures and is passionate about advancing patient care through technology.",
+      "social": {
+        "twitter": "https://twitter.com/",
+        "linkedin": "https://linkedin.com/"
+      }
+    }
+  },
+  {
+    "id": 2,
+    "title": "The Future of Healthcare Technology",
+    "link": "future-healthcare-technology",
+    "para": "“The medical team at Akshaya Clinic provided exceptional care. From advanced diagnostic tests to personalized treatment plans, everything was handled with precision and compassion.”",
+    "desc": "Healthcare technology is rapidly evolving, shaping patient outcomes with digital health tools, AI-driven diagnostics, and telemedicine solutions. Industry standards ensure reliability and safety in these advancements.",
+    "image": "/assests/new/image2.png",
+    "btn1": "All",
+    "btn2": "HealthTips",
+    "tags": ["Technology", "Nisha Rao", "May 02, 2025"],
+    "bannerImage": "/assests/new/bannerimage2.png",
+    "content": [
+      "Healthcare technology is no longer limited to hospitals; it is now at the fingertips of patients through mobile apps, wearables, and home monitoring devices.",
+      "AI and machine learning algorithms are enabling doctors to make faster and more accurate diagnoses."
+    ],
+    "subTitle": "How Digital Innovation is Transforming Patient Care",
+    "paragraphs": [
+      "The integration of electronic health records (EHR) with AI ensures seamless patient history tracking and predictive analytics.",
+      "Telemedicine has improved accessibility to healthcare, especially for rural populations.",
+      "Wearable devices monitor vital signs in real-time, alerting patients and doctors to anomalies instantly.",
+      "Blockchain in healthcare ensures data security and transparency across systems."
+    ],
+    "author": {
+      "name": "Dr. Nisha Rao",
+      "image": "/assests/new/dr nisha rao.png",
+      "description": "Dr. Nisha Rao is a healthcare technology consultant specializing in AI-driven healthcare solutions, telemedicine platforms, and medical IoT systems.",
+      "social": {
+        "twitter": "https://twitter.com/",
+        "linkedin": "https://linkedin.com/"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "title": "Orthopedic Rehabilitation",
+    "link": "orthopedic-rehabilitation",
+    "para": "“After my knee surgery, the orthopedic team provided me with world-class rehabilitation. The physiotherapists guided me through every step of recovery, making the journey stress-free.”",
+    "image": "/assests/new/Orthopedic Rehabilitation.png",
+    "btn1": "All",
+    "btn2": "Rehab",
+    "btnText": "Learn More",
+    "content": "<div>Orthopedic rehabilitation is designed to help patients recover strength and mobility after bone fractures, joint replacements, or injuries. Personalized therapy ensures quick and safe recovery.</div>"
+  },
+  {
+    "id": 4,
+    "title": "Maternity & Neonatal Care",
+    "link": "maternity-neonatal-care",
+    "para": "“The obstetrics and neonatal teams took wonderful care of me and my baby. From delivery to postnatal care, I felt safe and supported throughout the process.”",
+    "image": "/assests/new/maternity & neontal care.png",
+    "btn1": "All",
+    "btn2": "MotherCare",
+    "btnText": "Read More",
+    "content": "<div>Maternity and neonatal care focuses on the well-being of mothers during pregnancy, childbirth, and postpartum, as well as specialized care for newborns, especially premature or critically ill infants.</div>"
+  }
+]

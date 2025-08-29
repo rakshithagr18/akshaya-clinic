@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Cardiac Surgery",
+    "para": "From the moment I arrived at Akshaya Clinic, I was treated with kindness and professionalism. The nurses were attentive, the doctors were thorough, and the entire staff made me feel safe and well cared for.",
+    "image": "/assets/new/cardiacpatient.png"
+  },
+  {
+    "id": 2,
+    "title": "Orthopedic Treatment",
+    "para": "My recovery journey was smooth and stress-free. The doctors explained everything clearly, and the physiotherapy team guided me carefully, helping me regain my strength quickly and confidently.",
+    "image": "/assets/new/orthopedicpatient.png"
+  },
+  {
+    "id": 3,
+    "title": "Maternity Care",
+    "para": "The obstetrics team provided exceptional care during my pregnancy and delivery. I felt supported every step of the way, and my baby and I were in the safest hands with complete confidence in their expertise.",
+    "image": "/assets/new/maternitypatient.png"
+  },
+  {
+    "id": 4,
+    "title": "Dental Surgery",
+    "para": "I was nervous about my dental procedure, but the doctors made me comfortable and pain-free. The follow-up care was excellent, and the staff ensured I recovered smoothly and without any issues.",
+    "image": "/assets/new/dentalpatient.png"
+  },
+  {
+    "id": 5,
+    "title": "Neonatal Care",
+    "para": "Our newborn required special care, and the neonatal team was outstanding. Their expertise, attention, and compassion gave us confidence and complete peace of mind throughout the stay.",
+    "image": "/assets/new/neonatalpatient.png"
+  }
+]
