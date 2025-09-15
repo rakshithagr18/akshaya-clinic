@@ -17,12 +17,12 @@
   {
     "id": 4,
     "title": "Doctor",
-    "link": "#doctors"
+    "link": "/doctors"
   },
   {
     "id": 5,
     "title": "Blog",
-    "link": "#blog"
+    "link": "/blog"
   },
   {
     "id": 6,

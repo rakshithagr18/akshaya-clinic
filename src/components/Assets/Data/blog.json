@@ -8,7 +8,11 @@
     "image": "/assets/new/cardiac science.png",
     "btn1": "All",
     "btn2": "HealthTips",
-    "tags": ["Cardiology", "Rio Mehto", "April 24, 2025"],
+    "tags": [
+      "Cardiology",
+      "Rio Mehto",
+      "April 24, 2025"
+    ],
     "bannerImage": "/assets/new/banner image 1.png",
     "content": [
       "Cardiac Science is at the forefront of medical innovation, leveraging modern diagnostic imaging, minimally invasive surgeries, and personalized patient care.",
@@ -41,7 +45,11 @@
     "image": "/assets/new/image2.png",
     "btn1": "All",
     "btn2": "HealthTips",
-    "tags": ["Technology", "Nisha Rao", "May 02, 2025"],
+    "tags": [
+      "Technology",
+      "Nisha Rao",
+      "May 02, 2025"
+    ],
     "bannerImage": "/assets/new/bannerimage3.png",
     "content": [
       "Healthcare technology is no longer limited to hospitals; it is now at the fingertips of patients through mobile apps, wearables, and home monitoring devices.",
@@ -69,21 +77,73 @@
     "title": "Orthopedic Rehabilitation",
     "link": "orthopedic-rehabilitation",
     "para": "“After my knee surgery, the orthopedic team provided me with world-class rehabilitation. The physiotherapists guided me through every step of recovery, making the journey stress-free.”",
+    "desc": "Orthopedic rehabilitation is designed to help patients recover strength and mobility after bone fractures, joint replacements, or injuries. Our personalized therapy ensures quick and safe recovery.",
     "image": "/assets/new/Orthopedic Rehabilitation.png",
     "btn1": "All",
     "btn2": "Rehab",
-    "btnText": "Learn More",
-    "content": "<div>Orthopedic rehabilitation is designed to help patients recover strength and mobility after bone fractures, joint replacements, or injuries. Personalized therapy ensures quick and safe recovery.</div>"
+    "tags": [
+      "Orthopaedics",
+      "Dr. Rahul Sharma",
+      "June 10, 2025"
+    ],
+    "bannerImage": "/assets/new/bannerimage(3).png",
+    "content": [
+      "Orthopedic rehabilitation programs are tailored to restore full function, reduce pain, and improve quality of life after musculoskeletal injuries.",
+      "Advanced physiotherapy techniques, combined with modern equipment, speed up recovery and prevent complications.",
+      "Our experts ensure patients achieve optimal mobility and strength."
+    ],
+    "subTitle": "Innovative Approaches in Orthopedic Rehabilitation",
+    "paragraphs": [
+      "Personalized rehabilitation plans help patients regain independence and daily functionality quickly.",
+      "Use of assistive technology and AI-based motion tracking allows precise monitoring of progress.",
+      "Minimally invasive surgical recovery is complemented by structured rehabilitation.",
+      "Continuous assessment ensures patients reach long-term recovery goals safely."
+    ],
+    "author": {
+      "name": "Dr. Rahul Sharma",
+      "image": "/assets/new/rahulsharma.png",
+      "description": "Dr. Rahul Sharma is an experienced orthopedic surgeon specializing in post-surgical rehabilitation and injury prevention.",
+      "social": {
+        "twitter": "https://twitter.com/",
+        "linkedin": "https://linkedin.com/"
+      }
+    }
   },
   {
     "id": 4,
     "title": "Maternity & Neonatal Care",
     "link": "maternity-neonatal-care",
     "para": "“The obstetrics and neonatal teams took wonderful care of me and my baby. From delivery to postnatal care, I felt safe and supported throughout the process.”",
+    "desc": "Maternity and neonatal care focuses on the well-being of mothers during pregnancy, childbirth, and postpartum, as well as specialized care for newborns, especially premature or critically ill infants.",
     "image": "/assets/new/maternity & neontal care.png",
     "btn1": "All",
     "btn2": "MotherCare",
-    "btnText": "Read More",
-    "content": "<div>Maternity and neonatal care focuses on the well-being of mothers during pregnancy, childbirth, and postpartum, as well as specialized care for newborns, especially premature or critically ill infants.</div>"
+    "tags": [
+      "MotherCare",
+      "Dr. Anjali Mehta",
+      "July 05, 2025"
+    ],
+    "bannerImage": "/assets/new/Maternity&NeonatalCarebannerimage.png",
+    "content": [
+      "Our maternity & neonatal care programs combine expert obstetric services with advanced neonatal intensive care units (NICU) to ensure the safety of both mother and child.",
+      "We provide personalized birth plans, postpartum care, and guidance for new parents to promote healthy development.",
+      "Early detection and intervention for high-risk pregnancies and neonatal conditions are a priority."
+    ],
+    "subTitle": "Excellence in Maternity & Neonatal Care",
+    "paragraphs": [
+      "Comprehensive care from pregnancy to postpartum ensures the health and safety of mother and newborn.",
+      "Innovations in neonatal monitoring allow for timely interventions and improved survival rates.",
+      "Collaboration between obstetricians, pediatricians, and nurses ensures seamless care.",
+      "Patient education and support programs empower parents for long-term well-being."
+    ],
+    "author": {
+      "name": "Dr. Anjali Mehta",
+      "image": "/assets/new/anjalimehta.png",
+      "description": "Dr. Anjali Mehta is a senior obstetrician and neonatologist specializing in maternal-fetal medicine and newborn care.",
+      "social": {
+        "twitter": "https://twitter.com/",
+        "linkedin": "https://linkedin.com/"
+      }
+    }
   }
 ]
