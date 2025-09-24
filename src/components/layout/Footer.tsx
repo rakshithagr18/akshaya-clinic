@@ -1,9 +1,9 @@
 import React from "react";
-//container
+// Container
 import Container from "./Container";
-//image
+// Image
 import Image from "next/image";
-//link
+// Link
 import Link from "next/link";
 import {
   FaFacebookF,
@@ -30,7 +30,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="mb-5 sm:mb-0">
+          <div className="mb-5 sm:mb-0 flex flex-col justify-between">
             <h2 className="subTitle">Quick Links</h2>
             <div className="flex flex-col gap-2 text-[var(--content)] font-medium">
               <Link href="/">Home</Link>
@@ -40,18 +40,46 @@ const Footer = () => {
               <Link href="#blogs">Blogs</Link>
               <Link href="#contact">Contact Us</Link>
             </div>
+
+            {/* Separate Doctor Login / Signup Links with reduced gap */}
+            <div className="flex flex-col gap-2 mt-2 text-[var(--content)] font-medium">
+              <Link
+                href="/doctor-login"
+                className="hover:text-red-500"
+              >
+                Doctor Login
+              </Link>
+              <Link
+                href="/doctor-signup"
+                className="hover:text-red-500"
+              >
+                Doctor Signup
+              </Link>
+            </div>
           </div>
 
           {/* Social Links */}
           <div className="mb-5 sm:mb-0">
             <h2 className="subTitle">Socials</h2>
             <div className="flex flex-col gap-2 text-[var(--content)] font-medium">
-              <Link href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</Link>
-              <Link href="https://twitter.com" target="_blank" rel="noreferrer">Twitter</Link>
-              <Link href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</Link>
-              <Link href="https://youtube.com" target="_blank" rel="noreferrer">YouTube</Link>
-              <Link href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</Link>
-              <Link href="https://dribbble.com" target="_blank" rel="noreferrer">Dribbble</Link>
+              <Link href="https://facebook.com" target="_blank" rel="noreferrer">
+                Facebook
+              </Link>
+              <Link href="https://twitter.com" target="_blank" rel="noreferrer">
+                Twitter
+              </Link>
+              <Link href="https://instagram.com" target="_blank" rel="noreferrer">
+                Instagram
+              </Link>
+              <Link href="https://youtube.com" target="_blank" rel="noreferrer">
+                YouTube
+              </Link>
+              <Link href="https://linkedin.com" target="_blank" rel="noreferrer">
+                LinkedIn
+              </Link>
+              <Link href="https://dribbble.com" target="_blank" rel="noreferrer">
+                Dribbble
+              </Link>
             </div>
           </div>
 

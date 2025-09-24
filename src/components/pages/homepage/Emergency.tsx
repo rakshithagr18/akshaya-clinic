@@ -11,7 +11,7 @@ const Emergency = () => {
     <section className="padding">
       <Container width>
         <section className="sm:flex justify-between bg-[var(--primary)] py-10 px-5 rounded-2xl">
-          
+
           {/* 24x7 Hotline */}
           <div className="flex flex-col items-center mb-5 sm:mb-0 text-center">
             <div className="text-[var(--white)] text-6xl mb-3 transition-transform duration-300 hover:scale-110 hover:text-yellow-400">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoMdMenu } from "react-icons/io";
@@ -11,24 +11,46 @@ import Sidebar from "./Sidebar";
 
 const Header = () => {
   const [sidebar, setSidebar] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
   const params = useParams();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Close sidebar and dropdown on route change
   useEffect(() => {
-    setSidebar(false); // Close sidebar on route change
+    setSidebar(false);
+    setDropdown(false);
   }, [params]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-[var(--white)] shadow-md">
-      <nav className="w-[95%] mx-auto py-0.5"> {/* Reduced padding further */}
+      <nav className="w-[95%] mx-auto py-0.5">
         <section className="flex items-center justify-between">
-          {/* Smaller Logo */}
-          <Image
-            src="/assets/home/logo.jpg"
-            alt="logo"
-            width={120}  // Reduced width
-            height={120} // Reduced height
-            className="object-contain"
-          />
+          {/* Logo */}
+          <Link href="/">
+            <Image
+              src="/assets/home/logo.jpg"
+              alt="logo"
+              width={120}
+              height={120}
+              className="object-contain"
+            />
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden sm:flex items-center gap-4">
@@ -43,9 +65,33 @@ const Header = () => {
                 </Link>
               ))}
             </div>
-            <Link href="tel:912345678" className="btnLink text-sm">
-              Book Appointment
-            </Link>
+
+            {/* Login Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setDropdown(!dropdown)}
+                className="bg-red-400 text-black px-4 py-1 rounded hover:bg-red-500 transition text-sm"
+              >
+                Login
+              </button>
+
+              {dropdown && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-50">
+                  <Link
+                    href="/doctor-login"
+                    className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                  >
+                    Doctor Login
+                  </Link>
+                  <Link
+                    href="/doctor-signup"
+                    className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                  >
+                    Doctor Signup
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -64,4 +110,3 @@ const Header = () => {
 };
 
 export default Header;
-

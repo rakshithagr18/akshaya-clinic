@@ -9,7 +9,7 @@ import Doctors from "@/components/pages/homepage/Doctors";
 import Testimonials from "@/components/pages/homepage/Testimonials";
 import Blogs from "@/components/pages/homepage/Blogs";
 import Emergency from "@/components/pages/homepage/Emergency";
-import Appoinment from "@/components/pages/homepage/Appoinment";
+
 
 export default function Home() {
   return (
@@ -23,7 +23,6 @@ export default function Home() {
       <Doctors />
       <Testimonials />
       <Blogs />
-      <Appoinment />
       <Emergency />
     </>
   );
