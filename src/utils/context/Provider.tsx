@@ -25,15 +25,14 @@ const GlobalProvider = (props: GlobleContextProviderProps) => {
     //   const [api, contextHolder] = notification.useNotification();
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<IUser | null>(null);
-    const router = useRouter();
 
     const getUserInfo = async () => {
 
         const token = localStorage.getItem("token");
 
-        if (!token) {
-            router.replace("login")
-        }
+        // if (!token) {
+        //     router.replace("login")
+        // }
 
         try {
             const res = await fetch(`${BASE_URL}/users/profile`, {
@@ -62,7 +61,7 @@ const GlobalProvider = (props: GlobleContextProviderProps) => {
             // Redirect to dashboard on successful login
             // router.push("/dashboard");
 
-        } catch (err: any) {
+        } catch (err) {
             console.error("Login error:", err);
         }
     }

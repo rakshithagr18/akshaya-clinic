@@ -10,7 +10,10 @@ const layout = ({
     return (
         <>
             <GlobalProvider >
-                <DashboardLayout children={children} />
+                <DashboardLayout>
+
+                    {children}
+                </DashboardLayout>
             </GlobalProvider>
         </>
     )

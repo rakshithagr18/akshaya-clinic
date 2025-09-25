@@ -85,13 +85,13 @@ const SignupForm: React.FC = () => {
       alert("✅ Registration successful!");
       router.push("/dashboard");
 
-    } catch (err: any) {
-      console.error("Registration error:", err);
-      if (err.name === "TypeError" && err.message.includes("fetch")) {
-        setError("❌ Network error. Please check your connection.");
-      } else {
-        setError("❌ Something went wrong. Please try again.");
-      }
+    } catch (err) {
+      // console.error("Registration error:", err);
+      // if (err.name === "TypeError" && err.message.includes("fetch")) {
+      //   setError("❌ Network error. Please check your connection.");
+      // } else {
+      //   setError("❌ Something went wrong. Please try again.");
+      // }
     } finally {
       setLoading(false);
     }

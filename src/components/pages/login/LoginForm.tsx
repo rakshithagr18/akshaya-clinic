@@ -56,8 +56,8 @@ const LoginForm: React.FC = () => {
       // Redirect to dashboard on successful login
       router.push("/dashboard");
 
-    } catch (err: any) {
-      console.error("Login error:", err);
+    } catch (err) {
+      console.error("Login error:");
       setError("❌ Network error. Please check your connection and try again.");
     } finally {
       setLoading(false);
@@ -132,7 +132,7 @@ const LoginForm: React.FC = () => {
 
         <div className="mt-6 text-left text-sm sm:text-base">
           <p className="text-gray-600">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/signup" className="text-sky-500 hover:underline">
               Create one
             </Link>
