@@ -45,7 +45,7 @@ const DoctorSignupForm: React.FC = () => {
             <div className="w-full max-w-lg bg-white rounded-2xl shadow-md p-6 sm:p-8 text-left">
                 {/* Title */}
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">
-                    Doctor Signup
+                    Signup
                 </h2>
 
                 {/* Form Fields */}

@@ -1,0 +1,1 @@
+export const BASE_URL = "https://appointment-booking-system-nodejs-java.onrender.com/api"

@@ -1,6 +1,6 @@
 "use client";
 
-import { faBookmark, faClipboard, faHome, faMessage, faStar, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faClipboard, faHome, faUserCircle, faGear, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
@@ -43,7 +43,7 @@ export default function Sidebar({ isOpen }: { isOpen: boolean; setIsOpen: Dispat
                     </Link>
                 </li>
                 <li className="py-4 px-4 rounded-xl text-neutral-500 font-sora transition-colors duration-300">
-                    <Link href="/Courses" className="flex items-center text-md">
+                    <Link href="/Appointments" className="flex items-center text-md">
                         <FontAwesomeIcon icon={faClipboard} className="pe-2 text-[#066dca]" />
                         Appointments
                     </Link>
@@ -55,7 +55,7 @@ export default function Sidebar({ isOpen }: { isOpen: boolean; setIsOpen: Dispat
                 <ul className="flex flex-col gap-3">
                     <li className="py-4 px-4 rounded-xl text-neutral-500 font-sora transition-colors duration-300">
                         <Link href="/Settings" className="flex items-center text-md">
-                            <i className="ri-shield-user-line pe-2 text-[#066dca] text-[20px]"></i>
+                            <FontAwesomeIcon icon={faGear} className="pe-2 text-[#066dca]" />
                             Settings
                         </Link>
                     </li>
@@ -67,7 +67,7 @@ export default function Sidebar({ isOpen }: { isOpen: boolean; setIsOpen: Dispat
                 <ul className="flex flex-col gap-3">
                     <li className="w-full py-4 px-4 rounded-xl text-neutral-500 font-sora transition-colors duration-300">
                         <Link href="/logout" className="flex items-center text-md">
-                            <i className="ri-logout-box-r-line pe-2 text-[#066dca] text-[20px]"></i>
+                            <FontAwesomeIcon icon={faRightFromBracket} className="pe-2 text-[#066dca]" />
                             Logout
                         </Link>
                     </li>

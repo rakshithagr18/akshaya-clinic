@@ -24,7 +24,7 @@ const DoctorLoginForm = () => {
         <section className="min-h-screen flex items-center justify-center bg-gray-100 py-10">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-6 sm:p-8">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6 text-left">
-                    Doctor Login
+                    Login
                 </h2>
 
                 {/* Email */}

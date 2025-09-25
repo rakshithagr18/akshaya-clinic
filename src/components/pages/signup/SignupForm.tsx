@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { BASE_URL } from "@/utils/constants";
 
 const SignupForm: React.FC = () => {
   const [form, setForm] = useState({
@@ -15,29 +17,102 @@ const SignupForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    if (error) setError("");
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
+    // Validation
     if (!form.firstName || !form.lastName || !form.email || !form.password || !form.confirmPassword) {
-      alert("⚠️ Please fill in all required fields!");
+      setError("⚠️ Please fill in all required fields!");
       return;
     }
 
     if (form.password !== form.confirmPassword) {
-      alert("⚠️ Passwords do not match!");
+      setError("⚠️ Passwords do not match!");
       return;
     }
 
     if (!acceptTerms) {
-      alert("⚠️ You must accept the Terms and Conditions!");
+      setError("⚠️ You must accept the Terms and Conditions!");
       return;
     }
 
-    console.log("Register with:", form);
-    alert("✅ Registration successful!");
+    if (form.password.length < 6) {
+      setError("⚠️ Password must be at least 6 characters long!");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch(`${BASE_URL}/users/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: form.firstName.trim(),
+          lastName: form.lastName.trim(),
+          email: form.email.trim().toLowerCase(),
+          password: form.password
+        }),
+      });
+
+      // Check if response is JSON
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const textResponse = await res.text();
+        console.error("Non-JSON response:", textResponse.substring(0, 200));
+
+        if (res.status === 200 || res.status === 201) {
+          // Assume success if status is 200/201 but response isn't JSON
+          alert("✅ Registration successful! Please login.");
+          router.push("/login");
+          return;
+        }
+
+        setError("❌ Server error. Please try again later.");
+        return;
+      }
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || data.error || `❌ Registration failed (${res.status}). Please try again.`);
+        return;
+      }
+
+      // Registration successful
+      console.log("Registration successful:", data);
+
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
+
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
+
+      alert("✅ Registration successful! Please login.");
+      router.push("/login");
+
+    } catch (err: any) {
+      console.error("Registration error:", err);
+      if (err.name === "TypeError" && err.message.includes("fetch")) {
+        setError("❌ Network error. Please check your connection.");
+      } else {
+        setError("❌ Something went wrong. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,6 +138,7 @@ const SignupForm: React.FC = () => {
               required
               placeholder="Enter your first name"
               className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-400 text-sm sm:text-base"
+              disabled={loading}
             />
           </div>
 
@@ -79,6 +155,7 @@ const SignupForm: React.FC = () => {
               required
               placeholder="Enter your last name"
               className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-400 text-sm sm:text-base"
+              disabled={loading}
             />
           </div>
 
@@ -95,6 +172,7 @@ const SignupForm: React.FC = () => {
               required
               placeholder="Enter your email"
               className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-400 text-sm sm:text-base"
+              disabled={loading}
             />
           </div>
 
@@ -110,13 +188,15 @@ const SignupForm: React.FC = () => {
                 value={form.password}
                 onChange={handleChange}
                 required
-                placeholder="Enter your password"
+                placeholder="Enter your password (min. 6 characters)"
                 className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-400 text-sm sm:text-base"
+                disabled={loading}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700"
+                disabled={loading}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
@@ -137,11 +217,13 @@ const SignupForm: React.FC = () => {
                 required
                 placeholder="Re-enter your password"
                 className="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-400 text-sm sm:text-base"
+                disabled={loading}
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-3 top-2.5 text-gray-500 hover:text-gray-700"
+                disabled={loading}
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
@@ -155,6 +237,7 @@ const SignupForm: React.FC = () => {
               checked={acceptTerms}
               onChange={(e) => setAcceptTerms(e.target.checked)}
               className="mr-2"
+              disabled={loading}
             />
             <span className="text-sm text-gray-600">
               I accept the{" "}
@@ -168,9 +251,10 @@ const SignupForm: React.FC = () => {
           <button
             type="button"
             onClick={handleRegister}
-            className="w-full bg-red-400 text-white py-2 rounded-lg font-medium hover:bg-red-500 transition text-sm sm:text-base"
+            disabled={loading}
+            className="w-full bg-red-400 text-white py-2 rounded-lg font-medium hover:bg-red-500 transition text-sm sm:text-base disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
-            Register
+            {loading ? "Creating Account..." : "Register"}
           </button>
         </div>
 
@@ -181,11 +265,6 @@ const SignupForm: React.FC = () => {
             <Link href="/login" className="text-sky-500 hover:underline">
               Login here
             </Link>
-          </p>
-          <p className="mt-2">
-            {/* <Link href="/seller-signup" className="text-sky-500 hover:underline">
-              Become a seller
-            </Link> */}
           </p>
         </div>
       </div>
