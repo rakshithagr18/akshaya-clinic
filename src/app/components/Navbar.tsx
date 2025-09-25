@@ -4,13 +4,25 @@ import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faGear, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 
 export default function Navbar({ setIsOpen }: { setIsOpen: Dispatch<SetStateAction<boolean>>; }) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
+    const router = useRouter()
+
     const toggleUserMenu = () => {
         setIsUserMenuOpen(!isUserMenuOpen);
     };
+
+    const handleLogout = () => {
+
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+
+        router.replace("/")
+
+    }
 
     return (
         <div className="bg-white h-[90px] shadow-lg flex justify-between items-center gap-3 px-[2%]">

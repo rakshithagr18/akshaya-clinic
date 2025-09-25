@@ -42,3 +42,10 @@ export interface IBlog {
     };
   };
 }
+
+
+export interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+}

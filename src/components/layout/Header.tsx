@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoMdMenu } from "react-icons/io";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import navbar from "@/components/Assets/Data/navbar.json";
 import Sidebar from "./Sidebar";
@@ -14,6 +14,10 @@ const Header = () => {
   const [dropdown, setDropdown] = useState(false);
   const params = useParams();
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter()
+
+
 
   // Close sidebar and dropdown on route change
   useEffect(() => {

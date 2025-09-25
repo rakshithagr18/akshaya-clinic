@@ -58,29 +58,11 @@ const SignupForm: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstName: form.firstName.trim(),
-          lastName: form.lastName.trim(),
+          name: form.firstName.trim() + form.lastName.trim(),
           email: form.email.trim().toLowerCase(),
           password: form.password
         }),
       });
-
-      // Check if response is JSON
-      const contentType = res.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        const textResponse = await res.text();
-        console.error("Non-JSON response:", textResponse.substring(0, 200));
-
-        if (res.status === 200 || res.status === 201) {
-          // Assume success if status is 200/201 but response isn't JSON
-          alert("✅ Registration successful! Please login.");
-          router.push("/login");
-          return;
-        }
-
-        setError("❌ Server error. Please try again later.");
-        return;
-      }
 
       const data = await res.json();
 
@@ -100,8 +82,8 @@ const SignupForm: React.FC = () => {
         localStorage.setItem("user", JSON.stringify(data.user));
       }
 
-      alert("✅ Registration successful! Please login.");
-      router.push("/login");
+      alert("✅ Registration successful!");
+      router.push("/dashboard");
 
     } catch (err: any) {
       console.error("Registration error:", err);

@@ -3,9 +3,22 @@
 import { faClipboard, faHome, faUserCircle, faGear, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 
 export default function Sidebar({ isOpen }: { isOpen: boolean; setIsOpen: Dispatch<SetStateAction<boolean>>; }) {
+
+    const router = useRouter()
+
+    const handleLogout = () => {
+
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+
+        router.replace("/")
+
+    }
+
     return (
         <div
             className={`w-64 p-3 bg-white shadow-xl transition-transform duration-300 fixed lg:relative h-full z-20
@@ -30,20 +43,20 @@ export default function Sidebar({ isOpen }: { isOpen: boolean; setIsOpen: Dispat
             {/* Main Navigation */}
             <ul className="flex flex-col gap-3 overflow-y-auto">
                 <li className="py-4 px-4 rounded-xl text-neutral-500 font-sora transition-colors duration-300">
-                    <Link href="/Dashboard" className="flex items-center text-md">
+                    <Link href="/dashboard" className="flex items-center text-md">
                         <FontAwesomeIcon icon={faHome} className="pe-2 text-[#066dca]" />
                         Dashboard
                     </Link>
                 </li>
 
                 <li className="py-4 px-4 rounded-xl text-neutral-500 font-sora transition-colors duration-300">
-                    <Link href="/Profile" className="flex items-center text-md">
+                    <Link href="/profile" className="flex items-center text-md">
                         <FontAwesomeIcon icon={faUserCircle} className="pe-2 text-[#066dca]" />
                         My Profile
                     </Link>
                 </li>
                 <li className="py-4 px-4 rounded-xl text-neutral-500 font-sora transition-colors duration-300">
-                    <Link href="/Appointments" className="flex items-center text-md">
+                    <Link href="/appointments" className="flex items-center text-md">
                         <FontAwesomeIcon icon={faClipboard} className="pe-2 text-[#066dca]" />
                         Appointments
                     </Link>
@@ -66,10 +79,10 @@ export default function Sidebar({ isOpen }: { isOpen: boolean; setIsOpen: Dispat
             <div className="mt-10">
                 <ul className="flex flex-col gap-3">
                     <li className="w-full py-4 px-4 rounded-xl text-neutral-500 font-sora transition-colors duration-300">
-                        <Link href="/logout" className="flex items-center text-md">
+                        <button onClick={() => handleLogout} className="flex items-center text-md">
                             <FontAwesomeIcon icon={faRightFromBracket} className="pe-2 text-[#066dca]" />
                             Logout
-                        </Link>
+                        </button>
                     </li>
                 </ul>
             </div>
