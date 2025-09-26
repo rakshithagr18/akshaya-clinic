@@ -1,13 +1,13 @@
-import DoctorDetails from '@/components/pages/doctordetails/DoctorDetails';
-import Link from 'next/link';
-import React from 'react';
+import DoctorListing from '@/components/pages/doctors/DoctorListings'
+import Doctors from '@/components/pages/homepage/Doctors'
+import React from 'react'
 
-const Page = () => {
+const page = () => {
     return (
         <div>
-            <DoctorDetails />
+            <DoctorListing />
         </div>
-    );
+    )
 }
 
-export default Page;
+export default page

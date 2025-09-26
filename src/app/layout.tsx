@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import "swiper/css/grid";
 import SideNavWidgets from "@/components/ui/SideNavWidgets";
+import GlobalProvider from "@/utils/context/Provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,9 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-
-        {children}
-
+        <GlobalProvider >
+          {children}
+        </GlobalProvider>
       </body>
     </html>
   );

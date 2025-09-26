@@ -61,15 +61,15 @@ export default function Navbar({ setIsOpen }: { setIsOpen: Dispatch<SetStateActi
                                     My Profile
                                 </Link>
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link href='/Settings' className="text-md hover:text-[#006dca] transition-colors duration-300 flex items-center gap-2">
                                     <FontAwesomeIcon icon={faGear} /> Settings
                                 </Link>
-                            </li>
+                            </li> */}
                             <li>
-                                <Link href='/logout' className="text-md hover:text-[#006dca] transition-colors duration-300 flex items-center gap-2">
+                                <button onClick={handleLogout} className="text-md hover:text-[#006dca] transition-colors duration-300 flex items-center gap-2">
                                     <FontAwesomeIcon icon={faRightFromBracket} /> Logout
-                                </Link>
+                                </button>
                             </li>
                         </ul>
                     )}

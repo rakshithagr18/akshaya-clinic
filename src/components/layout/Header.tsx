@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoMdMenu } from "react-icons/io";
@@ -8,6 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 
 import navbar from "@/components/Assets/Data/navbar.json";
 import Sidebar from "./Sidebar";
+import { GlobalContext } from "@/utils/context/Provider";
 
 const Header = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -16,6 +17,8 @@ const Header = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter()
+
+  const { token } = useContext(GlobalContext)
 
 
 
@@ -72,12 +75,20 @@ const Header = () => {
 
             {/* Login Dropdown */}
             <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setDropdown(!dropdown)}
-                className="bg-red-400 text-black px-4 py-1 rounded hover:bg-red-500 transition text-sm"
-              >
-                Login
-              </button>
+              {
+                !token ? <button
+                  onClick={() => setDropdown(!dropdown)}
+                  className="bg-red-400 text-black px-4 py-1 rounded hover:bg-red-500 transition text-sm"
+                >
+                  Login
+                </button> : <Link
+                  href="/dashboard"
+                  className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                >
+                  Dashboard
+                </Link>
+              }
+
 
               {dropdown && (
                 <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-50">

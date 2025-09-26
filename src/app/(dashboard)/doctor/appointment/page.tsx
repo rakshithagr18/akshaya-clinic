@@ -233,7 +233,7 @@ export default function AppointmentForm() {
                     required
                 />
 
-                <button type="submit" className="w-full bg-red-600 text-white py-3 rounded-md font-semibold hover:bg-red-700">
+                <button type="submit" className="w-full bg-blue-500 text-white py-3 rounded-md font-semibold hover:bg-blue-500">
                     Book an Appointment
                 </button>
             </form>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Container from "@/components/layout/Container";
 import { FaArrowRight } from "react-icons/fa";
 
-const DoctorDetails = () => {
+const DoctorDetails = ({ id }: { id: string }) => {
     const [openDate, setOpenDate] = useState(false);
     const [openTime, setOpenTime] = useState(false);
     const [openService, setOpenService] = useState(false);

@@ -9,21 +9,29 @@ import Doctors from "@/components/pages/homepage/Doctors";
 import Testimonials from "@/components/pages/homepage/Testimonials";
 import Blogs from "@/components/pages/homepage/Blogs";
 import Emergency from "@/components/pages/homepage/Emergency";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import SideNavWidgets from "@/components/ui/SideNavWidgets";
 
 
 export default function Home() {
   return (
     <>
-      <Banner />
-      <Section />
-      <About />
-      <Awards />
-      <Services />
-      <Specialties />
-      <Doctors />
-      <Testimonials />
-      <Blogs />
-      <Emergency />
+      <Header />
+      <main>
+        <Banner />
+        <Section />
+        <About />
+        <Awards />
+        <Services />
+        <Specialties />
+        <Doctors />
+        <Testimonials />
+        <Blogs />
+        <Emergency />
+      </main>
+      <Footer />
+      <SideNavWidgets />
     </>
   );
 }

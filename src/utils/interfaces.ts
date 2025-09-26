@@ -49,3 +49,17 @@ export interface IUser {
   name: string;
   email: string;
 }
+
+
+export interface IDoctor {
+  _id: string,
+  firstName: string,
+  lastName: string,
+  link: string,
+  image: string,
+  isDoc: string,
+  designation: string,
+  dept: string,
+  content: string,
+  desc: string,
+}

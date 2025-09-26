@@ -9,12 +9,12 @@ const layout = ({
 }>) => {
     return (
         <>
-            <GlobalProvider >
-                <DashboardLayout>
 
-                    {children}
-                </DashboardLayout>
-            </GlobalProvider>
+            <DashboardLayout>
+
+                {children}
+            </DashboardLayout>
+
         </>
     )
 }

@@ -66,12 +66,12 @@ export default function Sidebar({ isOpen }: { isOpen: boolean; setIsOpen: Dispat
             <div className="mt-6">
                 <p className="py-3 text-neutral-500 font-sora tracking-wide">Admin</p>
                 <ul className="flex flex-col gap-3">
-                    <li className="py-4 px-4 rounded-xl text-neutral-500 font-sora transition-colors duration-300">
+                    {/* <li className="py-4 px-4 rounded-xl text-neutral-500 font-sora transition-colors duration-300">
                         <Link href="/Settings" className="flex items-center text-md">
                             <FontAwesomeIcon icon={faGear} className="pe-2 text-[#066dca]" />
                             Settings
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
 

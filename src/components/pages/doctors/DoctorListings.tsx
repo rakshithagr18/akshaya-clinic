@@ -5,98 +5,52 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { FaArrowLeft, FaArrowRight, FaChevronDown } from "react-icons/fa";
+import { BASE_URL } from "@/utils/constants";
+import { IDoctor } from "@/utils/interfaces";
+import Link from "next/link";
 
 const DoctorListing = () => {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
+  const prevRef = useRef<HTMLButtonElement | null>(null);
+  const nextRef = useRef<HTMLButtonElement | null>(null);
+
   const [swiperReady, setSwiperReady] = useState(false);
   const [selectedDept, setSelectedDept] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [doctors, setDoctors] = useState<IDoctor[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const doctors = [
-    {
-      name: "Dr. Mridu Plaban Borah",
-      image: "/assets/new/doctorsimage1.png",
-      details:
-        "MD (Pediatrics), FIPNA (Ped. Nephrology), AASC (Allergy, Asthma & Immunology) Consultant & Pediatric Nephrologist Department of Pediatrics",
-      phone: "9876543201",
-      department: "Pediatrics",
-    },
-    {
-      name: "Dr. Bhupen Barman",
-      image: "/assets/new/doctorimage(1).png",
-      details:
-        "MBBS, DGO, MD (Obstetrics & Gynaecology) Senior Consultant Department of Obstetrics & Gynaecology",
-      phone: "9876543202",
-      department: "Gynecology",
-    },
-    {
-      name: "Dr. Apurba Kumar Sarma",
-      image: "/assets/new/doctorimage(2).png",
-      details:
-        "MBBS, MS (Gen Surgery), MCh (CVTS) Founder, Chairman & Managing Director, Chief CTVS Surgeon Department of Cardio Thoracic Vascular Surgery",
-      phone: "9876543203",
-      department: "Cardiology",
-    },
-    {
-      name: "Dr. Kishore Kumar Talukdar",
-      image: "/assets/new/doctorimage(3).png",
-      details:
-        "MBBS, MD-Internal Medicine, PGD-Diabetes Consultant Department of Internal Medicine, Diabetology & Critical Care",
-      phone: "9876543204",
-      department: "Internal Medicine",
-    },
-    {
-      name: "Dr. Biswajit Gogoi",
-      image: "/assets/new/doctorimage(4).png",
-      details:
-        "MBBS, MS (ENT) Consultant (ENT & Skull Base Surgery) Department of ENT, Head & Neck Surgery",
-      phone: "9876543205",
-      department: "ENT",
-    },
-    {
-      name: "Dr. Suman Hazarika",
-      image: "/assets/new/doctorimage(5).png",
-      details:
-        "MD (Radiology), PhD Director Radiology & Imaging Department of Radiology & Imaging",
-      phone: "9876543206",
-      department: "Radiology",
-    },
-    {
-      name: "Dr. Utpal Baruah",
-      image: "/assets/new/doctorimage(6).png",
-      details:
-        "MBBS, DNB (General Surgery), FMAS Consultant Department of General & Minimal Access Surgery",
-      phone: "9876543207",
-      department: "General Surgery",
-    },
-    {
-      name: "Dr. Manas Pratim Borthakur",
-      image: "/assets/new/doctorimage(7).png",
-      details:
-        "MBBS, MD (Anaesthesiology), DNB, PDCC (Critical Care Medicine) Consultant Department of Anaesthesiology & Critical Care",
-      phone: "9876543208",
-      department: "Critical Care",
-    },
-  ];
+  // Fetch doctors from API
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/doctors`);
+        const data = await response.json();
+        setDoctors(data); // make sure your API returns array of doctors
+
+        console.log(data);
+
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDoctors();
+    setSwiperReady(true);
+  }, []);
 
   // Filtering doctors
   const filteredDoctors = doctors.filter((doctor) => {
     if (selectedDept !== "all") {
-      return (
-        doctor.department.toLowerCase().replace(/\s+/g, "") === selectedDept
-      );
+      return doctor.dept?.toLowerCase().replace(/\s+/g, "") === selectedDept;
     }
     if (searchTerm.trim() !== "") {
-      return doctor.department.toLowerCase().includes(searchTerm.toLowerCase());
+      return doctor.dept?.toLowerCase().includes(searchTerm.toLowerCase());
     }
     return true;
   });
-
-  useEffect(() => {
-    setSwiperReady(true);
-  }, []);
 
   return (
     <div className="p-0 relative">
@@ -192,66 +146,72 @@ const DoctorListing = () => {
           </div>
         </div>
 
-        {/* Custom Arrows */}
-        <div className="absolute top-1/2 -translate-y-1/2 left-0 z-10">
-          <button
-            ref={prevRef}
-            className="p-2 bg-white rounded-full shadow hover:bg-gray-100"
-          >
-            <FaArrowLeft className="text-gray-800" />
-          </button>
-        </div>
-        <div className="absolute top-1/2 -translate-y-1/2 right-0 z-10">
-          <button
-            ref={nextRef}
-            className="p-2 bg-white rounded-full shadow hover:bg-gray-100"
-          >
-            <FaArrowRight className="text-gray-800" />
-          </button>
-        </div>
+        {/* Loading state */}
+        {loading ? (
+          <div className="text-center text-gray-600 py-10">⏳ Loading doctors...</div>
+        ) : filteredDoctors.length > 0 ? (
+          <>
+            {/* Custom Arrows */}
+            <div className="absolute top-1/2 -translate-y-1/2 left-0 z-10">
+              <button
+                ref={prevRef}
+                className="p-2 bg-white rounded-full shadow hover:bg-gray-100"
+              >
+                <FaArrowLeft className="text-gray-800" />
+              </button>
+            </div>
+            <div className="absolute top-1/2 -translate-y-1/2 right-0 z-10">
+              <button
+                ref={nextRef}
+                className="p-2 bg-white rounded-full shadow hover:bg-gray-100"
+              >
+                <FaArrowRight className="text-gray-800" />
+              </button>
+            </div>
 
-        {/* Doctor Cards Slider */}
-        {swiperReady && filteredDoctors.length > 0 ? (
-          <Swiper
-            modules={[Navigation]}
-            navigation={{
-              prevEl: prevRef.current,
-              nextEl: nextRef.current,
-            }}
-            spaceBetween={20}
-            slidesPerView={1}
-            breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-          >
-            {filteredDoctors.map((doctor, index) => (
-              <SwiperSlide key={index}>
-                <div className="border p-4 shadow-lg rounded-lg flex flex-col h-full min-h-[500px]">
-                  {/* Image container */}
-                  <div className="w-full h-64 md:h-48 lg:h-52 overflow-hidden rounded bg-gray-100 flex items-center justify-center mb-3">
-                    <img
-                      src={doctor.image}
-                      alt={doctor.name}
-                      className="max-h-full w-auto object-contain"
-                    />
-                  </div>
-                  <h3 className="font-bold mb-2">{doctor.name}</h3>
-                  <p className="text-gray-500 text-sm mb-2">
-                    {doctor.details}
-                  </p>
-                  {/* Push button to bottom with a small margin */}
-                  <a
-                    href={`tel:${doctor.phone}`}
-                    className="w-full block text-center bg-red-800 text-white px-4 py-2 mt-auto rounded hover:bg-red-900"
-                  >
-                    Book Appointment
-                  </a>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+            {/* Doctor Cards Slider */}
+            {swiperReady && (
+              <Swiper
+                modules={[Navigation]}
+                navigation={{
+                  prevEl: prevRef.current,
+                  nextEl: nextRef.current,
+                }}
+                spaceBetween={20}
+                slidesPerView={1}
+                breakpoints={{
+                  640: { slidesPerView: 1 },
+                  768: { slidesPerView: 2 },
+                  1024: { slidesPerView: 3 },
+                }}
+              >
+                {filteredDoctors.map((doctor, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="border p-4 shadow-lg rounded-lg flex flex-col h-full min-h-[500px]">
+                      {/* Image container */}
+                      <div className="w-full h-64 md:h-48 lg:h-52 overflow-hidden rounded bg-gray-100 flex items-center justify-center mb-3">
+                        <img
+                          src={doctor.image}
+                          alt={doctor.firstName}
+                          className="max-h-full w-auto object-contain"
+                        />
+                      </div>
+                      <h3 className="font-bold mb-2">{doctor.firstName + " " + doctor.lastName}</h3>
+                      <p className="text-gray-500 text-sm mb-2">
+                        {doctor.desc}
+                      </p>
+                      <Link
+                        href={`/doctors/${doctor._id}`}
+                        className="w-full block text-center bg-red-800 text-white px-4 py-2 mt-auto rounded hover:bg-red-900"
+                      >
+                        Book Appointment
+                      </Link>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
+          </>
         ) : (
           <div className="text-center text-gray-600 py-10">
             🚫 No doctors found in this department.

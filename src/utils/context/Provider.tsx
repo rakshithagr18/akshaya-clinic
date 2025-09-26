@@ -11,6 +11,9 @@ interface CommonContextType {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
     user: IUser | null;
     setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+    token: string | null;
+    setToken: React.Dispatch<React.SetStateAction<string | null>>;
+
 }
 
 export const GlobalContext = createContext({} as CommonContextType);
@@ -25,6 +28,7 @@ const GlobalProvider = (props: GlobleContextProviderProps) => {
     //   const [api, contextHolder] = notification.useNotification();
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<IUser | null>(null);
+    const [token, setToken] = useState<string | null>(null);
 
     const getUserInfo = async () => {
 
@@ -49,7 +53,7 @@ const GlobalProvider = (props: GlobleContextProviderProps) => {
 
 
             if (!res.ok) {
-                alert("Something went wrong")
+                // alert("Something went wrong")
                 return;
             }
 
@@ -71,7 +75,12 @@ const GlobalProvider = (props: GlobleContextProviderProps) => {
 
     useEffect(() => {
         getUserInfo();
+        setToken(localStorage.getItem("token") || null)
     }, []);
+
+    useEffect(() => {
+        setToken(localStorage.getItem("token") || null)
+    }, [user]);
 
     return (
         <GlobalContext.Provider
@@ -81,6 +90,8 @@ const GlobalProvider = (props: GlobleContextProviderProps) => {
                 setLoading,
                 user,
                 setUser,
+                token,
+                setToken,
                 ...props,
             }}
         >
