@@ -3,273 +3,229 @@
 import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Container from "@/components/layout/Container";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaChevronDown } from "react-icons/fa";
 import { IDoctor } from "@/utils/interfaces";
 import { BASE_URL } from "@/utils/constants";
 import { GlobalContext } from "@/utils/context/Provider";
 import { useRouter } from "next/navigation";
-// import { RiInputField } from "react-icons/ri";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const DoctorDetails = ({ id }: { id: string }) => {
     const [openDate, setOpenDate] = useState(false);
     const [openTime, setOpenTime] = useState(false);
-    // const [openService, setOpenService] = useState(false);
 
-    const [selectedDate, setSelectedDate] = useState("Select Date");
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const [tempDate, setTempDate] = useState<Date | null>(null);
     const [selectedTime, setSelectedTime] = useState("Select Time");
-    // const [selectedService, setSelectedService] = useState("");
 
-    const [searchDate, setSearchDate] = useState("");
     const [searchTime, setSearchTime] = useState("");
-    // const [searchService, setSearchService] = useState("");
 
     const [docDetails, setDocDetails] = useState<IDoctor | null>(null);
     const [reason, setReason] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const { user, token } = useContext(GlobalContext)
+    const { user, token } = useContext(GlobalContext);
+    const router = useRouter();
 
-    const router = useRouter()
-
-    console.log("docDetails=>", docDetails);
-
-
-    const dates = ["Date 1", "Date 2", "Date 3", "Date 4", "Date 5"];
     const times = [
         "10:00 AM - 11:00 AM",
         "11:00 AM - 12:00 PM",
         "03:00 PM - 04:00 PM",
         "04:00 PM - 05:00 PM",
     ];
-    // const services = [
-    //     "Type Of Service",
-    //     "Type Of Service",
-    //     "Type Of Service",
-    //     "Type Of Service",
-    // ];
 
-    const filteredDates = dates.filter((d) =>
-        d.toLowerCase().includes(searchDate.toLowerCase())
-    );
     const filteredTimes = times.filter((t) =>
         t.toLowerCase().includes(searchTime.toLowerCase())
     );
-    // const filteredServices = services.filter((s) =>
-    //     s.toLowerCase().includes(searchService.toLowerCase())
-    // );
 
     const handleBookAppointment = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!user?._id || !token) {
-            alert("Please login First")
-            return router.replace("/login")
+            alert("Please login First");
+            return router.replace("/login");
         }
 
         if (!reason) {
-            return alert("Please fill reason")
+            return alert("Please fill reason");
         }
 
         try {
-            setLoading(true)
+            setLoading(true);
             const res = await fetch(`${BASE_URL}/appointments`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    'Authorization': `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     date: selectedDate,
                     time: selectedTime,
                     appointmentFor: reason,
                     doctor: docDetails?._id,
-                    user: user?._id
+                    user: user?._id,
                 }),
             });
 
             const data = await res.json();
 
-            if (!res.ok) {
-                // setError(data.message || data.error || `❌ Registration failed (${res.status}). Please try again.`);
-                return;
-            }
-
-            // Registration successful
-            console.log("Registration successful:", data);
+            if (!res.ok) return;
 
             if (data?._id) {
-                alert("Appointment Booked")
+                alert("Appointment Booked");
                 router.push("/appointments");
                 return;
             }
-
-
-
-
         } catch (err) {
-
+            console.error(err);
         } finally {
             setLoading(false);
         }
-
-    }
+    };
 
     const fetchDoctorDetail = async () => {
         try {
             const response = await fetch(`${BASE_URL}/doctors/${id}`);
-
-            console.log("response=>", response);
-
             const data = await response.json();
-
-            if (data._id) {
-                setDocDetails(data);
-            }
+            if (data._id) setDocDetails(data);
         } catch (error) {
             console.error("Error fetching doctors:", error);
-        } finally {
-            // setLoading(false);
         }
     };
 
-
     useEffect(() => {
-        fetchDoctorDetail()
-    }, [])
+        fetchDoctorDetail();
+    }, []);
 
     return (
         <section className="py-8 md:py-10">
             <Container width>
-                {/* Grid: left 70% (profile + bio), right 30% (appointment) */}
                 <div className="grid grid-cols-1 md:grid-cols-[70%_30%] gap-6 md:gap-8">
                     {/* LEFT */}
                     <div>
-                        {/* Image + Info */}
                         <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
-                            {/* Image */}
                             <div className="flex-shrink-0 w-full md:w-auto flex justify-center md:justify-start">
                                 <Image
                                     src={docDetails?.image || ""}
-                                    alt="Dr. Sabrina Khan"
+                                    alt="Doctor"
                                     width={400}
                                     height={400}
                                     className="object-cover rounded-2xl shadow-md w-52 h-52 sm:w-64 sm:h-64 md:w-[400px] md:h-[400px]"
                                 />
                             </div>
-
-                            {/* Info */}
                             <div className="flex-1 min-w-0 text-left mt-4 md:mt-0">
                                 <h1 className="text-blue-400 text-xl sm:text-2xl font-bold mb-4">
                                     {docDetails?.firstName + " " + docDetails?.lastName}
                                 </h1>
-
                                 <div className="text-gray-700 space-y-2">
                                     <p className="text-sm sm:text-base">
-                                        <span className="font-bold">Designation:</span>  {docDetails?.designation}
+                                        <span className="font-bold">Designation:</span>{" "}
+                                        {docDetails?.designation}
                                     </p>
                                     <p className="text-sm sm:text-base">
-                                        <span className="font-bold">Department:</span> {docDetails?.dept}
+                                        <span className="font-bold">Department:</span>{" "}
+                                        {docDetails?.dept}
                                     </p>
-                                    {/* <p className="text-sm sm:text-base">
-                                        <span className="font-semibold">Call:</span>{" "}
-                                        <a href="tel:+17002300035" className="underline">
-                                            +1 (700) 230-0035
-                                        </a>
-                                    </p>
-                                    <p className="text-sm sm:text-base">
-                                        <span className="font-semibold">Email:</span>{" "}
-                                        <a href="mailto:example@gmail.com" className="underline">
-                                            example@gmail.com
-                                        </a>
-                                    </p> */}
                                 </div>
                             </div>
-                        </div>
-
-                        {/* BIOGRAPHY */}
-                        <div className="w-full mt-6 bg-gray-50 rounded-2xl shadow-md">
-                            {/* <h3 className="text-lg sm:text-xl font-bold border-b border-gray-300 p-4 sm:p-6">
-                                Biography of Dr. Sabrina Khan
-                            </h3> */}
-                            {/* 
-                            <div className="p-4 sm:p-6 space-y-2">
-                                <h4 className="text-base sm:text-lg font-semibold text-gray-900">
-                                    Educational Background
-                                </h4>
-                                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </p>
-                            </div> */}
-
-                            {/* <div className="p-4 sm:p-6 space-y-2">
-                                <h5 className="text-base sm:text-lg font-semibold text-gray-900">
-                                    Medical Experience & Skills
-                                </h5>
-                                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet,consectetur adipiscing elit.
-                                </p>
-                            </div> */}
                         </div>
                     </div>
 
                     {/* RIGHT */}
                     <div className="space-y-6">
-                        {/* Book Appointment */}
                         <div className="bg-sky-400 rounded-2xl shadow-lg p-4 sm:p-6">
                             <h3 className="text-lg sm:text-xl font-bold text-white text-center mb-4">
                                 Make Appointment
                             </h3>
 
                             <form className="space-y-4">
-                                {/* <input
-                                    type="text"
-                                    placeholder="Name"
-                                    className="w-full px-4 py-2 rounded-full border border-white focus:outline-none focus:ring-2 focus:ring-white bg-white text-sm sm:text-base"
-                                /> */}
-                                {/* 
-                                <input
-                                    type="email"
-                                    placeholder="Email"
-                                    className="w-full px-4 py-2 rounded-full border border-white focus:outline-none focus:ring-2 focus:ring-white bg-white text-sm sm:text-base"
-                                />  */}
-
                                 {/* DATE */}
                                 <div className="relative">
                                     <button
                                         type="button"
-                                        className="w-full px-4 py-2 text-left rounded-lg border border-white bg-white focus:outline-none focus:ring-2 focus:ring-white flex justify-between items-center text-sm sm:text-base"
+                                        className="w-full px-4 py-3 rounded-lg border border-white bg-white flex items-center justify-between text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-white"
                                         onClick={() => setOpenDate(!openDate)}
                                     >
-                                        {selectedDate}
-                                        <span className="ml-2">&#9660;</span>
+                                        {selectedDate
+                                            ? selectedDate.toLocaleDateString()
+                                            : "Select Date"}
+                                        <FaChevronDown className="ml-2" />
                                     </button>
 
                                     {openDate && (
-                                        <ul className="absolute z-20 w-full mt-1 bg-white border border-white rounded-lg shadow-lg max-h-40 overflow-y-auto text-sm sm:text-base">
-                                            <li className="px-4 py-2 bg-gray-300">Select Date</li>
-                                            <li className="px-2 py-2">
-                                                <input
-                                                    type="text"
-                                                    value={searchDate}
-                                                    onChange={(e) => setSearchDate(e.target.value)}
-                                                    className="w-full px-3 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-black/20"
-                                                />
-                                            </li>
-
-                                            {filteredDates.map((d, i) => (
-                                                <li
-                                                    key={i}
-                                                    className="px-4 py-2 cursor-pointer hover:bg-blue-500 hover:text-white rounded"
+                                        <div className="absolute z-50 mt-1 w-full bg-white rounded-lg shadow-md p-2">
+                                            <DatePicker
+                                                selected={tempDate ?? selectedDate}
+                                                onChange={(date) => setTempDate(date)}
+                                                minDate={new Date()}
+                                                inline
+                                                calendarClassName="rounded-lg shadow-md p-2"
+                                                renderCustomHeader={({
+                                                    date,
+                                                    decreaseMonth,
+                                                    increaseMonth,
+                                                    prevMonthButtonDisabled,
+                                                    nextMonthButtonDisabled,
+                                                }) => (
+                                                    <div className="flex justify-between items-center px-2 py-1">
+                                                        <button
+                                                            onClick={decreaseMonth}
+                                                            disabled={prevMonthButtonDisabled}
+                                                            className="px-2 py-1 rounded hover:bg-gray-200"
+                                                        >
+                                                            &lt;
+                                                        </button>
+                                                        <span>
+                                                            {date.toLocaleString("default", {
+                                                                month: "long",
+                                                            })}{" "}
+                                                            {date.getFullYear()}
+                                                        </span>
+                                                        <button
+                                                            onClick={increaseMonth}
+                                                            disabled={nextMonthButtonDisabled}
+                                                            className="px-2 py-1 rounded hover:bg-gray-200"
+                                                        >
+                                                            &gt;
+                                                        </button>
+                                                    </div>
+                                                )}
+                                            />
+                                            {/* Footer buttons */}
+                                            <div className="flex justify-between mt-2 px-2">
+                                                <button
+                                                    type="button"
                                                     onClick={() => {
-                                                        setSelectedDate(d);
-                                                        setOpenDate(false);
-                                                        setSearchDate("");
+                                                        setTempDate(null);
+                                                        setSelectedDate(null);
                                                     }}
+                                                    className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 text-sm"
                                                 >
-                                                    {d}
-                                                </li>
-                                            ))}
-                                        </ul>
+                                                    Clear
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        if (tempDate) setSelectedDate(tempDate);
+                                                        setOpenDate(false);
+                                                    }}
+                                                    className="px-3 py-1 rounded bg-blue-500 hover:bg-blue-600 text-white text-sm"
+                                                >
+                                                    Set
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setTempDate(selectedDate);
+                                                        setOpenDate(false);
+                                                    }}
+                                                    className="px-3 py-1 rounded bg-red-200 hover:bg-red-300 text-sm"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
 
@@ -281,12 +237,11 @@ const DoctorDetails = ({ id }: { id: string }) => {
                                         onClick={() => setOpenTime(!openTime)}
                                     >
                                         {selectedTime}
-                                        <span className="ml-2">&#9660;</span>
+                                        <FaChevronDown className="ml-2" />
                                     </button>
 
                                     {openTime && (
                                         <ul className="absolute z-20 w-full mt-1 bg-white border border-white rounded-lg shadow-lg max-h-40 overflow-y-auto text-sm sm:text-base">
-                                            <li className="px-4 py-2 bg-gray-300">Select Time</li>
                                             <li className="px-2 py-2">
                                                 <input
                                                     type="text"
@@ -313,7 +268,7 @@ const DoctorDetails = ({ id }: { id: string }) => {
                                     )}
                                 </div>
 
-                                {/* SERVICE */}
+                                {/* Reason */}
                                 <div>
                                     <input
                                         type="text"
@@ -324,95 +279,15 @@ const DoctorDetails = ({ id }: { id: string }) => {
                                     />
                                 </div>
 
-                                {/* <button
-                                        type="button"
-                                        className="w-full px-4 py-2 text-left rounded-lg border border-white bg-white focus:outline-none focus:ring-2 focus:ring-white flex justify-between items-center text-sm sm:text-base"
-                                        onClick={() => setOpenService(!openService)}
-                                    >
-                                        {selectedService}
-                                        <span className="ml-2">&#9660;</span>
-                                    </button> */}
-
-                                {/* {openService && (
-                                        <ul className="absolute z-20 w-full mt-1 bg-white border border-white rounded-lg shadow-lg max-h-40 overflow-y-auto text-sm sm:text-base">
-                                            <li className="px-4 py-2 bg-gray-300">Required Text</li>
-                                            <li className="px-2 py-2">
-                                                {/* <input
-                                                    type="text"
-                                                    value={searchService}
-                                                    onChange={(e) => setSearchService(e.target.value)}
-                                                    className="w-full px-3 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-black/20"
-                                                /> */}
-                                {/* </li> */}
-
-                                {/* {filteredServices.map((s, i) => (
-                                                <li
-                                                    key={i}
-                                                    className="px-4 py-2 cursor-pointer hover:bg-blue-500 hover:text-white rounded"
-                                                    onClick={() => {
-                                                        setSelectedService(s);
-                                                        setOpenService(false);
-                                                        setSearchService("");
-                                                    }}
-                                                >
-                                                    {s}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )} 
-                                </div> */}
-
                                 <button
                                     disabled={loading}
                                     onClick={handleBookAppointment}
-                                    // type="submit"
                                     className="group w-full py-2 bg-white text-gray-800 font-semibold rounded-full shadow flex items-center justify-center gap-2 hover:bg-green-500 hover:text-white transition text-sm sm:text-base"
                                 >
                                     {loading ? <span>Please wait</span> : <span>Schedule now</span>}
-
                                     <FaArrowRight className="opacity-0 group-hover:opacity-100 transition text-white" />
                                 </button>
                             </form>
-                        </div>
-
-                        {/* Timings  */}
-                        <div className="bg-white rounded-2xl shadow-md p-4 sm:p-6">
-                            {/* <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 border-b border-gray-300 pb-1">
-                                <span className="border-b-2 border-sky-400 pb-1">
-                                    Opening Time
-                                </span>
-                            </h3>  */}
-
-                            {/* <ul className="space-y-3 text-gray-700 text-xs sm:text-sm">
-                                <li className="flex justify-between">
-                                    <span>Friday – Saturday</span>
-                                    <span className="font-medium text-gray-500">
-                                        7.30 am – 4.00 pm
-                                    </span>
-                                </li>
-                                <li className="flex justify-between">
-                                    <span>Sunday – Monday</span>
-                                    <span className="font-medium text-gray-500">
-                                        10.30 am – 12.00 pm
-                                    </span>
-                                </li>
-                                <li className="flex justify-between">
-                                    <span>Tuesday</span>
-                                    <span className="font-medium text-gray-500">Closed</span>
-                                </li>
-                                <li className="flex justify-between">
-                                    <span>Wednesday</span>
-                                    <span className="font-medium text-gray-500">
-                                        8.30 am – 5.00 pm
-                                    </span>
-                                </li>
-                                <li className="flex justify-between">
-                                    <span>Thursday</span>
-                                    <span className="font-medium text-gray-500">
-                                        7.30 am – 4.00 pm
-                                    </span>
-                                </li>
-                            </ul> */}
                         </div>
                     </div>
                 </div>

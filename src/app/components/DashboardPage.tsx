@@ -8,7 +8,7 @@ const DashboardPage: React.FC = () => {
             subtitle: "Till Today",
             icon: (
                 <svg
-                    className="w-12 h-12 p-2 rounded-full bg-white text-black"
+                    className="w-10 h-10 p-1 rounded-full bg-white text-black"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                 >
@@ -18,81 +18,40 @@ const DashboardPage: React.FC = () => {
                 </svg>
             ),
         },
-        // Uncomment later when you add more
-        // {
-        //   title: "Today Patient",
-        //   value: "068",
-        //   subtitle: "21 Dec-2021",
-        //   icon: (
-        //     <svg
-        //       className="w-12 h-12 p-2 rounded-full bg-white text-black"
-        //       fill="currentColor"
-        //       viewBox="0 0 24 24"
-        //     >
-        //       <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 
-        //       0-2 .9-2 2v14c0 1.1.9 2 2 
-        //       2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 
-        //       16H5V9h14v11zm0-13H5V6h14v1z" />
-        //     </svg>
-        //   ),
-        // },
-        // {
-        //   title: "Today Appointments",
-        //   value: "085",
-        //   subtitle: "21 Dec-2021",
-        //   icon: (
-        //     <svg
-        //       className="w-12 h-12 p-2 rounded-full bg-white text-black"
-        //       fill="currentColor"
-        //       viewBox="0 0 24 24"
-        //     >
-        //       <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 
-        //       0-2 .9-2 2v16c0 1.1.9 2 2 
-        //       2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 
-        //       18H5V8h14v13z" />
-        //     </svg>
-        //   ),
-        // },
     ];
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 bg-transparent">
-            <div className="max-w-4xl w-full">
-                <h1 className="text-3xl font-bold text-center mb-8 text-black">
-                    Dashboard
-                </h1>
+        <div className="min-h-screen flex flex-col items-center justify-center bg-transparent p-4">
+            {/* Dashboard Title */}
+            <h1 className="text-3xl font-bold mb-6 text-black">
+                Dashboard
+            </h1>
 
-                {/* Flex container with background for cards */}
-                <div className="bg-gray-100 p-6 rounded-2xl shadow-lg">
-                    <div
-                        className={`grid gap-6 ${stats.length === 1
-                                ? "place-items-center" // Center if only one card
-                                : "grid-cols-1 md:grid-cols-3"
-                            }`}
-                    >
-                        {stats.map((stat, index) => (
-                            <div
-                                key={index}
-                                className="bg-sky-200 rounded-2xl shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105 flex items-center p-6 gap-4"
-                            >
-                                {/* Icon */}
-                                {stat.icon}
+            {/* Outer box containing cards */}
+            <div className="bg-gray-100 p-6 rounded-xl shadow-md w-full max-w-sm">
+                <div className="flex justify-center">
+                    {stats.map((stat, index) => (
+                        <div
+                            key={index}
+                            className="bg-sky-200 rounded-xl shadow-sm p-4 flex items-center gap-3 w-full max-w-xs transform transition-transform duration-300 hover:scale-105"
+                        >
+                            {/* Icon */}
+                            {stat.icon}
 
-                                {/* Content */}
-                                <div>
-                                    <h3 className="text-lg font-semibold text-black">
-                                        {stat.title}
-                                    </h3>
-                                    <p className="text-3xl font-bold mt-1 text-black">
-                                        {stat.value}
-                                    </p>
-                                    <p className="text-sm opacity-90 text-black">
-                                        {stat.subtitle}
-                                    </p>
-                                </div>
+                            {/* Content */}
+                            <div>
+                                <h3 className="text-md font-semibold text-black">
+                                    {stat.title}
+                                </h3>
+                                <p className="text-2xl font-bold mt-1 text-black">
+                                    {stat.value}
+                                </p>
+                                <p className="text-sm opacity-90 text-black">
+                                    {stat.subtitle}
+                                </p>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
