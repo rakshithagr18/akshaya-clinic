@@ -1,13 +1,15 @@
 "use client";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faGear, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import { GlobalContext } from "@/utils/context/Provider";
 
 export default function Navbar({ setIsOpen }: { setIsOpen: Dispatch<SetStateAction<boolean>>; }) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const { setUser, setToken } = useContext(GlobalContext)
 
     const router = useRouter()
 
@@ -19,6 +21,8 @@ export default function Navbar({ setIsOpen }: { setIsOpen: Dispatch<SetStateActi
 
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        setUser(null);
+        setToken(null)
 
         router.replace("/")
 
@@ -36,10 +40,10 @@ export default function Navbar({ setIsOpen }: { setIsOpen: Dispatch<SetStateActi
             <div className="flex items-center gap-3">
                 {/* Create New Appointment Link */}
                 <Link
-                    href="/doctor/appointment"
+                    href="/doctors"
                     className="border border-[#006dca] hover:bg-[#006dca] hover:text-white px-4 rounded-full py-2 cursor-pointer transition-colors duration-300 flex"
                 >
-                    Create a New Appointment
+                    Book new Appointment
                 </Link>
 
                 {/* User Menu */}
@@ -57,7 +61,7 @@ export default function Navbar({ setIsOpen }: { setIsOpen: Dispatch<SetStateActi
                     {isUserMenuOpen && (
                         <ul className="absolute top-15 right-0 bg-white w-[200px] p-3 flex flex-col gap-3 rounded-2xl shadow-xl animate-fade-in">
                             <li>
-                                <Link href='/Profile' className="text-md hover:text-[#006dca] transition-colors duration-300 flex items-center gap-2">
+                                <Link href="/profile" className="text-md hover:text-[#006dca] transition-colors duration-300 flex items-center gap-2">
                                     My Profile
                                 </Link>
                             </li>

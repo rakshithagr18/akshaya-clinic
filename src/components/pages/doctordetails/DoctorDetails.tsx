@@ -1,22 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Container from "@/components/layout/Container";
 import { FaArrowRight } from "react-icons/fa";
+import { IDoctor } from "@/utils/interfaces";
+import { BASE_URL } from "@/utils/constants";
+import { GlobalContext } from "@/utils/context/Provider";
+import { useRouter } from "next/navigation";
+// import { RiInputField } from "react-icons/ri";
 
 const DoctorDetails = ({ id }: { id: string }) => {
     const [openDate, setOpenDate] = useState(false);
     const [openTime, setOpenTime] = useState(false);
-    const [openService, setOpenService] = useState(false);
+    // const [openService, setOpenService] = useState(false);
 
     const [selectedDate, setSelectedDate] = useState("Select Date");
     const [selectedTime, setSelectedTime] = useState("Select Time");
-    const [selectedService, setSelectedService] = useState("Select Service");
+    // const [selectedService, setSelectedService] = useState("");
 
     const [searchDate, setSearchDate] = useState("");
     const [searchTime, setSearchTime] = useState("");
-    const [searchService, setSearchService] = useState("");
+    // const [searchService, setSearchService] = useState("");
+
+    const [docDetails, setDocDetails] = useState<IDoctor | null>(null);
+    const [reason, setReason] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const { user, token } = useContext(GlobalContext)
+
+    const router = useRouter()
+
+    console.log("docDetails=>", docDetails);
+
 
     const dates = ["Date 1", "Date 2", "Date 3", "Date 4", "Date 5"];
     const times = [
@@ -25,12 +41,12 @@ const DoctorDetails = ({ id }: { id: string }) => {
         "03:00 PM - 04:00 PM",
         "04:00 PM - 05:00 PM",
     ];
-    const services = [
-        "Type Of Service",
-        "Type Of Service",
-        "Type Of Service",
-        "Type Of Service",
-    ];
+    // const services = [
+    //     "Type Of Service",
+    //     "Type Of Service",
+    //     "Type Of Service",
+    //     "Type Of Service",
+    // ];
 
     const filteredDates = dates.filter((d) =>
         d.toLowerCase().includes(searchDate.toLowerCase())
@@ -38,9 +54,88 @@ const DoctorDetails = ({ id }: { id: string }) => {
     const filteredTimes = times.filter((t) =>
         t.toLowerCase().includes(searchTime.toLowerCase())
     );
-    const filteredServices = services.filter((s) =>
-        s.toLowerCase().includes(searchService.toLowerCase())
-    );
+    // const filteredServices = services.filter((s) =>
+    //     s.toLowerCase().includes(searchService.toLowerCase())
+    // );
+
+    const handleBookAppointment = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!user?._id || !token) {
+            alert("Please login First")
+            return router.replace("/login")
+        }
+
+        if (!reason) {
+            return alert("Please fill reason")
+        }
+
+        try {
+            setLoading(true)
+            const res = await fetch(`${BASE_URL}/appointments`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    date: selectedDate,
+                    time: selectedTime,
+                    appointmentFor: reason,
+                    doctor: docDetails?._id,
+                    user: user?._id
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                // setError(data.message || data.error || `❌ Registration failed (${res.status}). Please try again.`);
+                return;
+            }
+
+            // Registration successful
+            console.log("Registration successful:", data);
+
+            if (data?._id) {
+                alert("Appointment Booked")
+                router.push("/appointments");
+                return;
+            }
+
+
+
+
+        } catch (err) {
+
+        } finally {
+            setLoading(false);
+        }
+
+    }
+
+    const fetchDoctorDetail = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/doctors/${id}`);
+
+            console.log("response=>", response);
+
+            const data = await response.json();
+
+            if (data._id) {
+                setDocDetails(data);
+            }
+        } catch (error) {
+            console.error("Error fetching doctors:", error);
+        } finally {
+            // setLoading(false);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchDoctorDetail()
+    }, [])
 
     return (
         <section className="py-8 md:py-10">
@@ -54,7 +149,7 @@ const DoctorDetails = ({ id }: { id: string }) => {
                             {/* Image */}
                             <div className="flex-shrink-0 w-full md:w-auto flex justify-center md:justify-start">
                                 <Image
-                                    src="/assets/new/doctorimage5.png"
+                                    src={docDetails?.image || ""}
                                     alt="Dr. Sabrina Khan"
                                     width={400}
                                     height={400}
@@ -65,25 +160,17 @@ const DoctorDetails = ({ id }: { id: string }) => {
                             {/* Info */}
                             <div className="flex-1 min-w-0 text-left mt-4 md:mt-0">
                                 <h1 className="text-blue-400 text-xl sm:text-2xl font-bold mb-4">
-                                    Dr. Sabrina Khan
+                                    {docDetails?.firstName + " " + docDetails?.lastName}
                                 </h1>
 
                                 <div className="text-gray-700 space-y-2">
                                     <p className="text-sm sm:text-base">
-                                        MBBS (University of Wyoming).
+                                        <span className="font-bold">Designation:</span>  {docDetails?.designation}
                                     </p>
                                     <p className="text-sm sm:text-base">
-                                        M.D. of Medicine (Netherland Medical College).
+                                        <span className="font-bold">Department:</span> {docDetails?.dept}
                                     </p>
-                                    <p className="text-sm sm:text-base">
-                                        <span className="font-bold">Senior Prof. (MBBS, M.D)</span>{" "}
-                                        Netherland Medical College.
-                                    </p>
-
-                                    <p className="text-sm sm:text-base">
-                                        <span className="font-semibold">Reg No:</span> A-36589
-                                    </p>
-                                    <p className="text-sm sm:text-base">
+                                    {/* <p className="text-sm sm:text-base">
                                         <span className="font-semibold">Call:</span>{" "}
                                         <a href="tel:+17002300035" className="underline">
                                             +1 (700) 230-0035
@@ -94,17 +181,17 @@ const DoctorDetails = ({ id }: { id: string }) => {
                                         <a href="mailto:example@gmail.com" className="underline">
                                             example@gmail.com
                                         </a>
-                                    </p>
+                                    </p> */}
                                 </div>
                             </div>
                         </div>
 
                         {/* BIOGRAPHY */}
                         <div className="w-full mt-6 bg-gray-50 rounded-2xl shadow-md">
-                            <h3 className="text-lg sm:text-xl font-bold border-b border-gray-300 p-4 sm:p-6">
+                            {/* <h3 className="text-lg sm:text-xl font-bold border-b border-gray-300 p-4 sm:p-6">
                                 Biography of Dr. Sabrina Khan
-                            </h3>
-
+                            </h3> */}
+                            {/* 
                             <div className="p-4 sm:p-6 space-y-2">
                                 <h4 className="text-base sm:text-lg font-semibold text-gray-900">
                                     Educational Background
@@ -112,16 +199,16 @@ const DoctorDetails = ({ id }: { id: string }) => {
                                 <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
-                            </div>
+                            </div> */}
 
-                            <div className="p-4 sm:p-6 space-y-2">
+                            {/* <div className="p-4 sm:p-6 space-y-2">
                                 <h5 className="text-base sm:text-lg font-semibold text-gray-900">
                                     Medical Experience & Skills
                                 </h5>
                                 <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet, consectetur adipiscing elit Ut enim ad minim veniam, quis nostrud exercitation Lorem ipsum dolor sit amet,consectetur adipiscing elit.
                                 </p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
@@ -134,17 +221,17 @@ const DoctorDetails = ({ id }: { id: string }) => {
                             </h3>
 
                             <form className="space-y-4">
-                                <input
+                                {/* <input
                                     type="text"
                                     placeholder="Name"
                                     className="w-full px-4 py-2 rounded-full border border-white focus:outline-none focus:ring-2 focus:ring-white bg-white text-sm sm:text-base"
-                                />
-
+                                /> */}
+                                {/* 
                                 <input
                                     type="email"
                                     placeholder="Email"
                                     className="w-full px-4 py-2 rounded-full border border-white focus:outline-none focus:ring-2 focus:ring-white bg-white text-sm sm:text-base"
-                                />
+                                />  */}
 
                                 {/* DATE */}
                                 <div className="relative">
@@ -227,29 +314,38 @@ const DoctorDetails = ({ id }: { id: string }) => {
                                 </div>
 
                                 {/* SERVICE */}
-                                <div className="relative">
-                                    <button
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Reason For Appointment"
+                                        value={reason}
+                                        onChange={(e) => setReason(e.target.value)}
+                                        className="w-full px-4 py-2 rounded-lg border-white bg-white focus:outline-none focus:ring-2 focus:ring-black/20 text-sm sm:text-base"
+                                    />
+                                </div>
+
+                                {/* <button
                                         type="button"
                                         className="w-full px-4 py-2 text-left rounded-lg border border-white bg-white focus:outline-none focus:ring-2 focus:ring-white flex justify-between items-center text-sm sm:text-base"
                                         onClick={() => setOpenService(!openService)}
                                     >
                                         {selectedService}
                                         <span className="ml-2">&#9660;</span>
-                                    </button>
+                                    </button> */}
 
-                                    {openService && (
+                                {/* {openService && (
                                         <ul className="absolute z-20 w-full mt-1 bg-white border border-white rounded-lg shadow-lg max-h-40 overflow-y-auto text-sm sm:text-base">
-                                            <li className="px-4 py-2 bg-gray-300">Select Service</li>
+                                            <li className="px-4 py-2 bg-gray-300">Required Text</li>
                                             <li className="px-2 py-2">
-                                                <input
+                                                {/* <input
                                                     type="text"
                                                     value={searchService}
                                                     onChange={(e) => setSearchService(e.target.value)}
                                                     className="w-full px-3 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-black/20"
-                                                />
-                                            </li>
+                                                /> */}
+                                {/* </li> */}
 
-                                            {filteredServices.map((s, i) => (
+                                {/* {filteredServices.map((s, i) => (
                                                 <li
                                                     key={i}
                                                     className="px-4 py-2 cursor-pointer hover:bg-blue-500 hover:text-white rounded"
@@ -263,28 +359,31 @@ const DoctorDetails = ({ id }: { id: string }) => {
                                                 </li>
                                             ))}
                                         </ul>
-                                    )}
-                                </div>
+                                    )} 
+                                </div> */}
 
                                 <button
-                                    type="submit"
+                                    disabled={loading}
+                                    onClick={handleBookAppointment}
+                                    // type="submit"
                                     className="group w-full py-2 bg-white text-gray-800 font-semibold rounded-full shadow flex items-center justify-center gap-2 hover:bg-green-500 hover:text-white transition text-sm sm:text-base"
                                 >
-                                    <span>Appointment</span>
+                                    {loading ? <span>Please wait</span> : <span>Schedule now</span>}
+
                                     <FaArrowRight className="opacity-0 group-hover:opacity-100 transition text-white" />
                                 </button>
                             </form>
                         </div>
 
-                        {/* Timings */}
+                        {/* Timings  */}
                         <div className="bg-white rounded-2xl shadow-md p-4 sm:p-6">
-                            <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 border-b border-gray-300 pb-1">
+                            {/* <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-4 border-b border-gray-300 pb-1">
                                 <span className="border-b-2 border-sky-400 pb-1">
                                     Opening Time
                                 </span>
-                            </h3>
+                            </h3>  */}
 
-                            <ul className="space-y-3 text-gray-700 text-xs sm:text-sm">
+                            {/* <ul className="space-y-3 text-gray-700 text-xs sm:text-sm">
                                 <li className="flex justify-between">
                                     <span>Friday – Saturday</span>
                                     <span className="font-medium text-gray-500">
@@ -313,7 +412,7 @@ const DoctorDetails = ({ id }: { id: string }) => {
                                         7.30 am – 4.00 pm
                                     </span>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,11 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faEnvelope, faPhone, faEye, faMessage, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { IAppointment } from "@/utils/interfaces";
+import { BASE_URL } from "@/utils/constants";
+import { useRouter } from "next/navigation";
 
 const appointments = [
     {
@@ -96,6 +99,53 @@ const appointments = [
 ];
 
 export default function AppointmentsPage() {
+    const [appointmentsList, setAppointmentsList] = useState<IAppointment[]>([])
+    const router = useRouter()
+
+    const getAppointmentsList = async () => {
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            router.replace("login")
+        }
+
+        try {
+            const res = await fetch(`${BASE_URL}/appointments`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`
+                },
+            });
+
+            const data = await res.json();
+
+            console.log("data=>", data);
+
+
+            if (!res.ok) {
+                // alert("Something went wrong")
+                return;
+            }
+
+            // Assuming the API returns a token upon successful login
+            if (Array.isArray(data)) {
+                setAppointmentsList(data)
+            }
+
+            // Redirect to dashboard on successful login
+            // router.push("/dashboard");
+
+        } catch (err) {
+            console.error("Login error:", err);
+        }
+    }
+
+    useEffect(() => {
+        getAppointmentsList()
+    }, [])
+
     return (
         <div className="p-6">
             <h2 className="text-2xl font-semibold mb-6">Appointments</h2>
@@ -104,22 +154,22 @@ export default function AppointmentsPage() {
                 <table className="w-full text-sm text-left text-gray-600">
                     <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
                         <tr>
-                            <th className="px-6 py-3">Patient</th>
+                            <th className="px-6 py-3">Doctor</th>
                             <th className="px-6 py-3">Date & Details</th>
-                            <th className="px-6 py-3">Contact</th>
+                            <th className="px-6 py-3">Status</th>
                             <th className="px-6 py-3">Actions</th>
-                            <th className="px-6 py-3">Start</th>
+                            {/* <th className="px-6 py-3">Start</th> */}
                         </tr>
                     </thead>
                     <tbody>
-                        {appointments.map((apt) => (
-                            <tr key={apt.id} className="border-b hover:bg-gray-50 transition">
+                        {appointmentsList.map((apt) => (
+                            <tr key={apt._id} className="border-b hover:bg-gray-50 transition">
                                 {/* Patient */}
                                 <td className="px-6 py-4 flex items-start gap-3">
-                                    <Image src={apt.image} alt={apt.name} width={20} height={20} className="rounded-lg" />
+                                    <Image src={apt?.doctor?.image} alt={apt?.doctor?.firstName} width={30} height={30} className="rounded-lg object-cover" />
                                     <div>
-                                        <p className="text-xs text-blue-500">{apt.id}</p> {/* ID in blue */}
-                                        <p className="font-medium text-gray-800">{apt.name}</p>
+                                        <p className="text-xs text-blue-500">#{apt._id.substring(0, 5)}</p> {/* ID in blue */}
+                                        <p className="font-medium text-gray-800">{apt.doctor.firstName + " " + apt.doctor.lastName}</p>
                                     </div>
                                 </td>
 
@@ -129,37 +179,39 @@ export default function AppointmentsPage() {
                                         <FontAwesomeIcon icon={faClock} className="text-black" />
                                         <span>{apt.date}, {apt.time}</span>
                                     </div>
-                                    <p className="text-xs font-semibold text-gray-700 mt-1">{apt.type} | {apt.mode}</p> {/* Bold type & mode */}
+                                    <p className="text-xs font-semibold text-gray-700 mt-1">{apt.appointmentFor}</p> {/* Bold type & mode */}
                                 </td>
 
                                 {/* Contact */}
                                 <td className="px-6 py-4">
                                     <div className="flex items-center gap-2 text-gray-700">
-                                        <FontAwesomeIcon icon={faEnvelope} className="text-black" />
-                                        <a href={`mailto:${apt.email}`} className="hover:underline text-sm">{apt.email}</a>
+                                        {/* <FontAwesomeIcon icon={faEnvelope} className="text-black" /> */}
+                                        {/* <a href={`mailto:${apt.email}`} className="hover:underline text-sm">{apt.email}</a> */}
+                                        {apt.status}
                                     </div>
-                                    <div className="flex items-center gap-2 text-gray-700 mt-1">
+                                    {/* <div className="flex items-center gap-2 text-gray-700 mt-1">
                                         <FontAwesomeIcon icon={faPhone} className="text-black" />
                                         <a href={`tel:${apt.phone}`} className="hover:underline text-sm">{apt.phone}</a>
-                                    </div>
+                                    </div> */}
                                 </td>
 
                                 {/* Actions */}
-                                <td className="px-6 py-4 flex items-center gap-3">
-                                    <FontAwesomeIcon icon={faEye} className="text-black cursor-pointer" title="View" />
-                                    <FontAwesomeIcon icon={faMessage} className="text-black cursor-pointer" title="Message" />
-                                    <FontAwesomeIcon icon={faXmark} className="text-black cursor-pointer" title="Cancel" />
+                                <td className="px-6 py-4 flex items-center gap-3 text-red-500">
+                                    {/* <FontAwesomeIcon icon={faEye} className="text-black cursor-pointer" title="View" />
+                                    <FontAwesomeIcon icon={faMessage} className="text-black cursor-pointer" title="Message" /> */}
+                                    <button className="cursor-pointer hover:underline"><FontAwesomeIcon icon={faXmark} className="text-red-500 " title="Cancel" /> Cancel</button>
+
                                 </td>
 
                                 {/* Start Now */}
-                                <td className="px-6 py-4">
+                                {/* <td className="px-6 py-4">
                                     <a
                                         href="#"
                                         className="text-black underline text-sm cursor-pointer hover:text-blue-600 font-bold"
                                     >
                                         Start Now
                                     </a>
-                                </td>
+                                </td> */}
                             </tr>
                         ))}
                     </tbody>

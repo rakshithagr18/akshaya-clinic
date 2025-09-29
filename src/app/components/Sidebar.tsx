@@ -1,19 +1,23 @@
 "use client";
 
+import { GlobalContext } from "@/utils/context/Provider";
 import { faClipboard, faHome, faUserCircle, faGear, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 
 export default function Sidebar({ isOpen }: { isOpen: boolean; setIsOpen: Dispatch<SetStateAction<boolean>>; }) {
-
+    const { setUser, setToken } = useContext(GlobalContext)
     const router = useRouter()
 
     const handleLogout = () => {
 
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+
+        setUser(null);
+        setToken(null)
 
         router.replace("/")
 
@@ -79,7 +83,7 @@ export default function Sidebar({ isOpen }: { isOpen: boolean; setIsOpen: Dispat
             <div className="mt-10">
                 <ul className="flex flex-col gap-3">
                     <li className="w-full py-4 px-4 rounded-xl text-neutral-500 font-sora transition-colors duration-300">
-                        <button onClick={() => handleLogout} className="flex items-center text-md">
+                        <button onClick={handleLogout} className="flex items-center text-md">
                             <FontAwesomeIcon icon={faRightFromBracket} className="pe-2 text-[#066dca]" />
                             Logout
                         </button>

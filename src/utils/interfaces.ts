@@ -63,3 +63,13 @@ export interface IDoctor {
   content: string,
   desc: string,
 }
+
+export interface IAppointment {
+  _id: string;
+  doctor: IDoctor
+  date: string
+  time: string
+  appointmentFor: string
+  status: string
+  // user:string
+}

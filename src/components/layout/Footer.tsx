@@ -43,18 +43,18 @@ const Footer = () => {
 
             {/* Separate Doctor Login / Signup Links with reduced gap */}
             <div className="flex flex-col gap-2 mt-2 text-[var(--content)] font-medium">
-              <Link
+              {/* <Link
                 href="/doctor-login"
                 className="hover:text-red-500"
               >
                 Doctor Login
-              </Link>
-              <Link
+              </Link> */}
+              {/* <Link
                 href="/doctor-signup"
                 className="hover:text-red-500"
               >
                 Doctor Signup
-              </Link>
+              </Link> */}
             </div>
           </div>
 
