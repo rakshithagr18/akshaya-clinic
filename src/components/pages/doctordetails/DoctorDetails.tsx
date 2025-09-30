@@ -106,13 +106,17 @@ const DoctorDetails = ({ id }: { id: string }) => {
                     <div>
                         <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
                             <div className="flex-shrink-0 w-full md:w-auto flex justify-center md:justify-start">
-                                <Image
-                                    src={docDetails?.image || ""}
-                                    alt="Doctor"
-                                    width={400}
-                                    height={400}
-                                    className="object-cover rounded-2xl shadow-md w-52 h-52 sm:w-64 sm:h-64 md:w-[400px] md:h-[400px]"
-                                />
+                                {/* IMAGE FIX: cover mode */}
+                                <div className="relative w-52 h-52 sm:w-64 sm:h-64 md:w-[400px] md:h-[400px] rounded-2xl shadow-md overflow-hidden">
+                                    <Image
+                                        src={docDetails?.image || "/default-doctor.jpg"}
+                                        alt="Doctor"
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, 400px"
+                                        priority
+                                    />
+                                </div>
                             </div>
                             <div className="flex-1 min-w-0 text-left mt-4 md:mt-0">
                                 <h1 className="text-blue-400 text-xl sm:text-2xl font-bold mb-4">
