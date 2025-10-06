@@ -62,7 +62,7 @@ const BlogListing = () => {
 
           <BlogPost />
         </section>
-        <Pagination />
+        {/* <Pagination /> */}
       </Container>
     </section>
   );
