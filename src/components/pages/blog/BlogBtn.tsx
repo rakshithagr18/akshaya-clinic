@@ -22,7 +22,7 @@ const BlogBtn = () => {
             <section className="blogbtn ">
               <select name="Text" id="text" className="outline-none">
                 <option value=" sort by: newest"> Sort By: Newest</option>
-                <option value=" sort by: oldest"> Sort By: Oldestst</option>
+                <option value=" sort by: oldest"> Sort By: Oldest</option>
               </select>
             </section>
           </section>

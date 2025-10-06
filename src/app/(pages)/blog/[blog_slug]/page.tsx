@@ -8,14 +8,14 @@ import React from "react";
 const page = () => {
   return (
     <>
-      <Banner
+      {/* <Banner
         title=""
         para=""
         // noBG={false}
         titleColor="#000000"
         tag="h1"
         img="/assests/new/bannerimage3.png"
-      />
+      /> */}
       <Details />
 
       <BlogCards />

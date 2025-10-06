@@ -11,7 +11,7 @@ const page = () => {
         // noBG={false}
         titleColor="#000000"
         tag="h1"
-        img="/assests/new/cardiac science.png"
+        img="assets/new/bannerimage.png"
       />
       <BlogListing />
     </>

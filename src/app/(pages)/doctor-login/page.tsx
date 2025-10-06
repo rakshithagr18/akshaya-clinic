@@ -1,13 +1,11 @@
-// import DoctorLoginForm from '@/components/pages/doctor-login/DoctorLoginForm';
-// import Link from 'next/link';
-// import React from 'react';
+import React from 'react'
 
-// const DoctorLoginPage = () => {
-//   return (
-//     <div>
-//       <DoctorLoginForm />
-//     </div>
-//   );
-// };
+const page = () => {
+    return (
+        <div>
+            Doctor login Page
+        </div>
+    )
+}
 
-// export default DoctorLoginPage;
+export default page
