@@ -1,20 +1,10 @@
-//container
 import Container from "@/components/layout/Container";
-//image
 import Image from "next/image";
-//link
 import Link from "next/link";
-//icon
 import { FaLongArrowAltRight } from "react-icons/fa";
-//import
 import React from "react";
-//blogpost
 import BlogPost from "./BlogPost";
-//blogbtn
 import BlogBtn from "./BlogBtn";
-//pagination
-// import Pagination from "@/components/ui/Pagination";
-//json
 import blog from "@/components/Assets/Data/blog.json";
 
 const BlogListing = () => {
@@ -22,32 +12,48 @@ const BlogListing = () => {
     <section className="padding">
       <BlogBtn />
       <Container width>
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[68%_30%] justify-between">
-          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
+        <section className="grid grid-cols-1 lg:grid-cols-[68%_30%] gap-6">
+          {/* Blog Cards */}
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
             {blog.map((item, index) => (
-              <div key={index} className="mb-3">
-                <Image
-                  src={item.image}
-                  alt="logo"
-                  width={300}
-                  height={200}
-                  className="w-full mb-3 rounded-2xl"
-                />
-                <div>
+              <div
+                key={index}
+                className="flex flex-col justify-between h-full bg-white p-4 rounded-2xl shadow-md"
+              >
+                {/* Image */}
+                <div className="w-full h-48 relative mb-3 rounded-2xl overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-col flex-1">
+                  {/* Tags */}
                   <div className="flex gap-3 mb-2">
                     <div className="blogcardbtn">
                       <Link href="#">{item.btn1}</Link>
                     </div>
-
                     <div className="blogcardbtn">
                       <Link href="#">{item.btn2}</Link>
                     </div>
                   </div>
 
-                  <h2 className="subTitle">{item.title}</h2>
-                  <p className="mb-3">{item.para}</p>
+                  {/* Title & Paragraph */}
+                  <div className="flex flex-col flex-1 mb-3">
+                    <h2 className="subTitle mb-2 line-clamp-2">
+                      {item.title} {/* e.g., "The Future of Healthcare Technology" */}
+                    </h2>
+                    <p className="text-sm flex-1 line-clamp-3">
+                      {item.para}
+                    </p>
+                  </div>
 
-                  <div>
+                  {/* Read More aligned at bottom */}
+                  <div className="mt-auto">
                     <Link
                       href={`/blog/${item.link}`}
                       className="flex items-center gap-2 text-[var(--secondary-light)]"
@@ -60,9 +66,9 @@ const BlogListing = () => {
             ))}
           </section>
 
+          {/* Sidebar / BlogPost */}
           <BlogPost />
         </section>
-        {/* <Pagination /> */}
       </Container>
     </section>
   );

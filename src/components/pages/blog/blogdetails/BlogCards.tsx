@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
-// Updated blog data
+// Blog data
 const blogData = [
   {
     id: 1,
@@ -90,10 +90,11 @@ const BlogCards = () => {
           className="mySwiper"
         >
           {blogData.map((blog) => (
-            <SwiperSlide key={blog.id}>
-              <div className="rounded shadow-lg overflow-hidden bg-white">
-                {/* Fixed smaller height container for equal images */}
-                <div className="relative w-full h-36">
+            <SwiperSlide key={blog.id} className="flex justify-center">
+              {/* Card */}
+              <div className="flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-sm h-full">
+                {/* Image */}
+                <div className="relative w-full h-48 flex-shrink-0">
                   <Image
                     src={blog.image}
                     alt={blog.title}
@@ -102,22 +103,31 @@ const BlogCards = () => {
                   />
                 </div>
 
-                <div className="px-4 pb-4">
-                  <div className="flex gap-2 mb-2 flex-wrap">
-                    {blog.category.map((cat, index) => (
-                      <div key={index} className="blogcardbtn text-xs">
-                        <Link href="#">{cat}</Link>
-                      </div>
-                    ))}
-                  </div>
+                {/* Categories under Image */}
+                <div className="px-4 pt-3 flex gap-2 flex-wrap">
+                  {blog.category.map((cat, index) => (
+                    <div key={index} className="blogcardbtn text-xs">
+                      <Link href="#">{cat}</Link>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Content */}
+                <div className="px-4 pb-4 flex flex-col flex-1">
                   <h2 className="font-semibold mb-2 text-sm">{blog.title}</h2>
-                  <p className="text-xs mb-2">{blog.description}</p>
-                  {/* <Link
+
+                  {/* Description with fixed height */}
+                  <p className="text-xs mb-3 h-16 overflow-hidden">
+                    {blog.description}
+                  </p>
+
+                  {/* Read More at bottom */}
+                  <Link
                     href={blog.link}
-                    className="flex items-center gap-2 text-[var(--secondary-light)] text-sm"
+                    className="flex items-center gap-2 text-[var(--secondary-light)] text-sm mt-auto"
                   >
                     Read More <FaLongArrowAltRight />
-                  </Link> */}
+                  </Link>
                 </div>
               </div>
             </SwiperSlide>

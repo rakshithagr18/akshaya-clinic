@@ -2,10 +2,9 @@ import Container from "@/components/layout/Container";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-// import BlogDetailsBtn from "./BlogDetailsBtn";
 import { FaTwitter, FaLinkedin } from "react-icons/fa";
 
-//interfaces
+// interfaces
 import { IBlog } from "@/utils/interfaces";
 
 const BlogContent = ({ data }: { data: IBlog | null }) => {
@@ -24,14 +23,16 @@ const BlogContent = ({ data }: { data: IBlog | null }) => {
               </div>
             ))}
           </section>
+
           {/* Description */}
           <section>
             <p className="mb-4">{data?.desc}</p>
+
             {/* Banner Image */}
             {data?.bannerImage && (
               <div>
                 <Image
-                  src={data?.bannerImage}
+                  src={data.bannerImage}
                   alt="banner"
                   width={1200}
                   height={450}
@@ -39,14 +40,17 @@ const BlogContent = ({ data }: { data: IBlog | null }) => {
                 />
               </div>
             )}
+
             {/* Content paragraphs */}
             {data?.content.map((paragraph, index) => (
               <p key={index} className="mb-4">
                 {paragraph}
               </p>
             ))}
+
             {/* Subtitle */}
             <h2 className="title mb-3">{data?.subTitle}</h2>
+
             {/* Additional paragraphs */}
             {data?.paragraphs.map((para, index) => (
               <p key={index} className="mb-4">
@@ -56,17 +60,21 @@ const BlogContent = ({ data }: { data: IBlog | null }) => {
 
             {/* Author Section */}
             {data?.author && (
-              <section className="flex flex-col sm:flex-row gap-4 items-center">
-                <Image
-                  src={data.author.image}
-                  alt={data.author.name}
-                  width={100}
-                  height={100}
-                  className="object-cover rounded-full"
-                />
-                <div>
+              <section className="flex flex-col sm:flex-row gap-4 items-center mt-6">
+                {/* Author Image */}
+                <div className="w-28 h-28 relative flex-shrink-0 rounded-full overflow-hidden">
+                  <Image
+                    src={data.author.image}
+                    alt={data.author.name}
+                    fill
+                    className="object-cover object-center"
+                  />
+                </div>
+
+                {/* Author Details */}
+                <div className="flex-1">
                   <p>{data.author.description}</p>
-                  <h2 className="subTitle">{data.author.name}</h2>
+                  <h2 className="subTitle mt-1">{data.author.name}</h2>
                   <div className="flex gap-3 mt-2">
                     {data.author.social.twitter && (
                       <Link
