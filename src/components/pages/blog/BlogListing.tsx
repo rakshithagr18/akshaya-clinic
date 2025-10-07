@@ -13,7 +13,7 @@ import BlogPost from "./BlogPost";
 //blogbtn
 import BlogBtn from "./BlogBtn";
 //pagination
-import Pagination from "@/components/ui/Pagination";
+// import Pagination from "@/components/ui/Pagination";
 //json
 import blog from "@/components/Assets/Data/blog.json";
 
